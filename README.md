@@ -10,12 +10,12 @@ Never heard of the Jsend spec? As stated on the [OmniTI Labs site](http://labs.o
 
 A basic JSend-compliant response is as simple as this:
 
-  {
-	    status : "success",
-    	data : {
-        	"post" : { "id" : 1, "title" : "A blog post", "body" : "content" }
-     	}
-	}
+  	{
+		status : "success",
+    		data : {
+        		"post" : { "id" : 1, "title" : "A blog post", "body" : "content" }
+		}
+   	}
 
 Internally we handle all the necessary validation, for example if the corresponding keys (i.e. status and data) are present and if their values are allowed (in case of the status key: either succes, fail or error). This means you can skip the validation logic in your callbacks and focus directly on handling the data. Out of the box we also provide error handling when XHR fails for some reason.
 
