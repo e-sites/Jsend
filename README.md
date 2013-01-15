@@ -1,7 +1,7 @@
 Jsend
 =====
 
-Jsend is a layer on top of jQuery's $.ajax method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.
+JSend is a layer on top of jQuery's `$.ajax` method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.
 
 ## The spec
 Never heard of the Jsend spec? As stated on the [OmniTI Labs site](http://labs.omniti.com/labs/jsend):
@@ -10,12 +10,14 @@ Never heard of the Jsend spec? As stated on the [OmniTI Labs site](http://labs.o
 
 A basic JSend-compliant response is as simple as this:
 
-	{
-		status : "success",
-		data : {
-			"post" : { "id" : 1, "title" : "A blog post", "body" : "content" }
-		}
+```js
+{
+	status : "success",
+	data : {
+		"post" : { "id" : 1, "title" : "A blog post", "body" : "content" }
 	}
+}
+```
 
 Internally we handle all the necessary validation, for example if the corresponding keys (i.e. status and data) are present and if their values are allowed (in case of the status key: either succes, fail or error). This means you can skip the validation logic in your callbacks and focus directly on handling the data. Out of the box we also provide error handling when XHR fails for some reason.
 
@@ -28,68 +30,75 @@ Well, the guys at OmniTI sum it up quite nicely:
 ## Implementation
 The implementation is easy as pie. You'll need to (at least) add the following two scripts in your HTML (preferbly just before the `</body>` closing tag):
 
-	<script src="/library/assets/jquery-1.8.3.min.js" ></script>
-	<script src="/library/assets/jsend-1.2.min.js"></script>
+```html
+<script src="/library/assets/jquery-1.8.3.min.js" ></script>
+<script src="/library/assets/jsend-1.2.min.js"></script>
+```
 
 Initiating an actual XHR can be accomplished as follows:
 
-	Jsend({
-		url: 'url.php',
-		data: 'foo=bar',
-		success: function (data) {
-			console.log(data); // contains the value of the data-key
-			console.log(this); // Jsend instance
-		}
-	});
+```js
+Jsend({
+	url: 'url.php',
+	data: 'foo=bar',
+	success: function (data) {
+		console.log(data); // contains the value of the data-key
+		console.log(this); // Jsend instance
+	}
+});
+```
 
 Perhaps you prefer to work directly with an instance? Got that.
-
-	var xhr = new Jsend();
-	xhr.config.type = 'POST';
-	xhr.config.url = 'xhr.php';
+```js
+var xhr = new Jsend();
+xhr.config.type = 'POST';
+xhr.config.url = 'xhr.php';
 	
-	// Somewhere in your event delegation logic…
-	$('#adminpanel').on('click', '.btn', function (e) {
-		xhr.post({foo: 'bar'}, function (data) {
-			// handle data
-		});
-		e.preventDefault();
+// Somewhere in your event delegation logic…
+$('#adminpanel').on('click', '.btn', function (e) {
+	xhr.post({foo: 'bar'}, function (data) {
+		// handle data
 	});
+	e.preventDefault();
+});
+```
 
 Also, we have some low-level abstractions:
-
-	Jsend()
-		post('xhr.php', {'foo': 'bar'}, function (data) {
-			// Do something with `data`
-		});
+```js
+Jsend()
+	post('xhr.php', {'foo': 'bar'}, function (data) {
+		// Do something with `data`
+	});
 		
-	Jsend()
-		get('xhr.php', 'foo=bar', function (data) {
-			// Do something with `data`
-		});	
-
+Jsend()
+	get('xhr.php', 'foo=bar', function (data) {
+		// Do something with `data`
+	});	
+```
 ## Plugins
 You want more cool Jsend stuff? Well, just add it yourself :). You can easily extend the Jsend constructor. At the moment we already have three additional plugins ready, check out the plugins directory.
 
 ### How to extend Jsend?
 As stated above, by simply by prototyping the Jsend constructor. Check out the following snippet:
 
-	/**
- 	  * A handy .delay method
-	  * We simply override the .dispatch() method and calling .xhr() in a setTimeout
-	  *
-	  * @usage  Jsend().delay(2000).dispatch();
-	  *
-	  * @param  {number} ms delay in milliseconds
-	  * @return {object}
-	  */
-	Jsend.prototype.delay = function (ms) {
-		this.dispatch = function () {
-			setTimeout(this.xhr, ms);
-			return this;
-		}
+```js
+/**
+   * A handy .delay method
+  * We simply override the .dispatch() method and calling .xhr() in a setTimeout
+  *
+  * @usage  Jsend().delay(2000).dispatch();
+  *
+  * @param  {number} ms delay in milliseconds
+  * @return {object}
+  */
+Jsend.prototype.delay = function (ms) {
+	this.dispatch = function () {
+		setTimeout(this.xhr, ms);
 		return this;
-	};
+	}
+	return this;
+};
+```
 
 Please note that, to maintain 'chainability', you'll need to return the `this` context at the end of your function.
 
