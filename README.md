@@ -1,7 +1,7 @@
 Jsend
 =====
 
-Jsend is a layer on top of jQuery's $.ajax method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives you the functionality to handle the actual communcation based on this format.
+Jsend is a layer on top of jQuery's $.ajax method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.
 
 ## The spec
 Never heard of the Jsend spec? As stated on the [OmniTI Labs site](http://labs.omniti.com/labs/jsend):
@@ -10,16 +10,16 @@ Never heard of the Jsend spec? As stated on the [OmniTI Labs site](http://labs.o
 
 A basic JSend-compliant response is as simple as this:
 
-  	{
+	{
 		status : "success",
-    		data : {
-        		"post" : { "id" : 1, "title" : "A blog post", "body" : "content" }
+		data : {
+			"post" : { "id" : 1, "title" : "A blog post", "body" : "content" }
 		}
-   	}
+	}
 
 Internally we handle all the necessary validation, for example if the corresponding keys (i.e. status and data) are present and if their values are allowed (in case of the status key: either succes, fail or error). This means you can skip the validation logic in your callbacks and focus directly on handling the data. Out of the box we also provide error handling when XHR fails for some reason.
 
-### (Why) Should I care?
+### Why Jsend?
 Well, the guys at OmniTI sum it up quite nicely:
 
 > If you're a library or framework developer, this gives you a consistent format which your users are more likely to already be familiar with, which means they'll already know how to consume and interact with your code. If you're a web app developer, you won't have to think about how to structure the JSON data in your application, and you'll have existing reference implementations to get you up and running quickly.
@@ -42,14 +42,14 @@ Initiating an actual XHR can be accomplished as follows:
 		}
 	});
 
-Perhaps you prefer to work with an instance? Got that.
+Perhaps you prefer to work directly with an instance? Got that.
 
 	var xhr = new Jsend();
 	xhr.config.type = 'POST';
 	xhr.config.url = 'xhr.php';
 	
-	// Somewhere in your events logic…
-	$('#adminpanel').on('click', 'button', function (e) {
+	// Somewhere in your event delegation logic…
+	$('#adminpanel').on('click', '.btn', function (e) {
 		xhr.post({foo: 'bar'}, function (data) {
 			// handle data
 		});
@@ -62,6 +62,11 @@ Also, we have some low-level abstractions:
 		post('xhr.php', {'foo': 'bar'}, function (data) {
 			// Do something with `data`
 		});
+		
+	Jsend()
+		get('xhr.php', 'foo=bar', function (data) {
+			// Do something with `data`
+		});	
 
 ## Plugins
 You want more cool Jsend stuff? Well, just add it yourself :). You can easily extend the Jsend constructor. At the moment we already have three additional plugins ready, check out the plugins directory.
@@ -89,10 +94,11 @@ As stated above, by simply by prototyping the Jsend constructor. Check out the f
 Please note that, to maintain 'chainability', you'll need to return the `this` context at the end of your function.
 
 ## PHP entrypoint
-In our repo we have included a single entrypoint named `xhr.php`, all communication will go through this file.
-As long as you return valid JSON that is compliant with the Jsend spec, you're good.
+In our repo we have included a single entrypoint named `xhr.php`, all communication will go through this file. Inside this file we just use a simple `switch` statement to handle the different scenario's. Now, it doesn't really matter how simple (or complex) this code is. As long as you return valid JSON (i.e. compliant with the Jsend spec), you're good to go.
 
 ## Roadmap
+At the moment we
+
 * more unit tests
 * write more documentation
 * add more demo's (e.g. how to handle errors et cetera)
