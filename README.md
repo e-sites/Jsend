@@ -31,7 +31,7 @@ Well, the guys at OmniTI sum it up quite nicely:
 The implementation is easy as pie. You'll need to (at least) add the following two scripts in your HTML (preferbly just before the `</body>` closing tag):
 
 ```html
-<script src="/library/assets/jquery-1.8.3.min.js" ></script>
+<script src="/library/assets/jquery-1.8.3.min.js"></script>
 <script src="/library/assets/jsend-1.2.min.js"></script>
 ```
 
