@@ -3,6 +3,8 @@ Jsend
 
 JSend is a layer on top of jQuery's `$.ajax` method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.
 
+More info, demo's and unit tests can be found at: [github.e-sites.nl/jsend](http://github.e-sites.nl/jsend)
+
 ## The spec
 Never heard of the JSend spec? As stated on the [OmniTI Labs site](http://labs.omniti.com/labs/jsend):
 
