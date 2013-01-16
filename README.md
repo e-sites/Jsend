@@ -1,4 +1,4 @@
-Jsend
+JSend
 =====
 
 JSend is a layer on top of jQuery's `$.ajax` method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.
@@ -77,7 +77,7 @@ J$.get('xhr.php', 'foo=bar', function (data) {
 });	
 ```
 ## Plugins
-You want more cool JSend stuff? Well, just add it yourself :). You can easily extend the Jsend constructor. At the moment we already have three additional plugins ready, check out the plugins directory.
+You want more cool JSend stuff? Well, just add it yourself :). You can easily extend the JSend constructor. At the moment we already have three additional plugins ready, check out the plugins directory.
 
 ### How to extend?
 As stated above, by simply by prototyping the JSend constructor. Check out the following snippet:
@@ -104,7 +104,7 @@ JSend.prototype.delay = function (ms) {
 Please note that, to maintain 'chainability', you'll need to return the `this` context at the end of your function.
 
 ## PHP entrypoint
-In our repo we have included a single entrypoint named `xhr.php`, all communication will go through this file. Inside this file we just use a couple classes to handle the different scenario's. Now, it doesn't really matter how simple (or complex) this code is. As long as you return valid JSON (i.e. compliant with the Jsend spec), you're good to go.
+In our repo we have included a single entrypoint named `xhr.php`, all communication will go through this file. Inside this file we just use a couple classes to handle the different scenario's. Now, it doesn't really matter how simple (or complex) this code is. As long as you return valid JSON (i.e. compliant with the JSend spec), you're good to go.
 
 ## Roadmap
 * more unit tests
