@@ -19,13 +19,14 @@ A basic JSend-compliant response is as simple as this:
 }
 ```
 
-Internally we handle all the necessary validation, for example if the corresponding keys (i.e. status and data) are present and if their values are allowed (in case of the status key: either succes, fail or error). This means you can skip the validation logic in your callbacks and focus directly on handling the data. Out of the box we also provide error handling when XHR fails for some reason.
+Internally we handle all the necessary validation, for example if the corresponding keys (i.e. status and data or message) are present and if their values are allowed (in case of the status key: either succes, fail or error). This means you can skip the validation logic in your callbacks and focus directly on handling the data. Out of the box we also provide error handling when XHR fails for some reason.
 
 ### Why JSend?
 Well, the guys at OmniTI sum it up quite nicely:
 
 > If you're a library or framework developer, this gives you a consistent format which your users are more likely to already be familiar with, which means they'll already know how to consume and interact with your code. If you're a web app developer, you won't have to think about how to structure the JSON data in your application, and you'll have existing reference implementations to get you up and running quickly.
 
+Basically, if you like the format that the spec lays out and you want to use it as a default for all Ajax communication, JSend might be the script you're looking for.
 
 ## Implementation
 The implementation is easy as pie. You'll need to (at least) add the following two scripts in your HTML (preferbly just before the `</body>` closing tag):
