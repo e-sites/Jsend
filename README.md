@@ -63,17 +63,15 @@ $('#adminpanel').on('click', '.btn', function (e) {
 });
 ```
 
-Also, we have some low-level abstractions:
+Also, we have some abstractions:
 ```js
-JSend()
-	post('xhr.php', {'foo': 'bar'}, function (data) {
-		// Do something with `data`
-	});
+J$.post('xhr.php', {'foo': 'bar'}, function (data) {
+	// Do something with `data`
+});
 		
-JSend()
-	get('xhr.php', 'foo=bar', function (data) {
-		// Do something with `data`
-	});	
+J$.get('xhr.php', 'foo=bar', function (data) {
+	// Do something with `data`
+});	
 ```
 ## Plugins
 You want more cool JSend stuff? Well, just add it yourself :). You can easily extend the Jsend constructor. At the moment we already have three additional plugins ready, check out the plugins directory.
