@@ -107,10 +107,8 @@ Please note that, to maintain 'chainability', you'll need to return the `this` c
 In our repo we have included a single entrypoint named `xhr.php`, all communication will go through this file. Inside this file we just use a couple classes to handle the different scenario's. Now, it doesn't really matter how simple (or complex) this code is. As long as you return valid JSON (i.e. compliant with the Jsend spec), you're good to go.
 
 ## Roadmap
-At the moment we
-
 * more unit tests
-* write more documentation
+* write more (and better) documentation
 * add more demo's (e.g. how to handle errors et cetera)
 * perhaps remove jQuery depency?
 * …any other suggestions? Mail us at github [at] e-sites.nl or fork JSend :)
