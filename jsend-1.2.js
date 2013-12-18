@@ -64,6 +64,7 @@
 		self.onSuccess = $.noop;
 		self.onError = $.noop;
 		self.onFail = $.noop;
+		self.onComplete = $.noop;
 
 		/**
 		 * Default error handling, called if the request fails due to a http error.
@@ -139,6 +140,7 @@
 					self.onError.apply(self, [body.message, xhr]);
 					break;
 			}
+			self.onComplete.apply(self, [body, xhr]);
 		}
 
 		/**
@@ -240,6 +242,19 @@
 		};
 
 		/**
+		 * Assigns a custom error callback.
+		 *
+		 * @example
+		 * JSend().error(function () {}).dispatch();
+		 *
+		 * @param {object} fn
+		 */
+		self.complete = function (fn) {
+			self.onComplete = fn;
+			return self;
+		};
+
+		/**
 		 * Main method that triggers the actual Ajax call.
 		 * This needs to be called explicitly when using methods like .success, .error etc)
 		 *
@@ -277,6 +292,10 @@
 				
 				if ( 'error' in setup ) {
 					self.onError = setup.error;
+				}
+				
+				if ( 'complete' in setup ) {
+					self.onComplete = setup.complete;
 				}
 
 				// Set back the correct success and error handler
