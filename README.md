@@ -1,5 +1,7 @@
-JSend
+JSend 2.0 - WORK IN PROGRESS
 =====
+
+## You are warned, this is not a stable branch yet ##
 
 JSend is a layer on top of jQuery's `$.ajax` method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.
 

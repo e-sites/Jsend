@@ -3,11 +3,10 @@
 	<head>
 		<meta charset="utf-8">
 		<title>JSend - Consistent JSON data exchange via Ajax</title>
-		<meta name="description" content="JSend is a layer on top of jQuery's $.ajax method that handles JSON data exchange according to the non-official JSend spec. ">
+		<meta name="description" content="JSend is a native AJAX implementation that strictly handles JSend responses according to the non-official JSend spec.">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script>document.documentElement.id = 'hasJS';</script>
-		<link rel="author" title="Boye Oomens" href="http://www.linkedin.com/in/boyeoomens">
-		<link rel="stylesheet" href="http://frontend.e-sites.nl/library/min/?g=css&1357562300">
+		<link rel="stylesheet" href="http://frontend.e-sites.nl/library/min/?g=css&amp;1357562300">
 		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	</head>
 	<body>
@@ -32,10 +31,10 @@
 		<div class="container" style="padding-top:20px;">
 			<h1>JSend</h1>
 			<ul class="nav nav-tabs" id="tab-nav">
-			  <li><a href="#home" data-toggle="tab">About</a></li>
-			  <li><a href="#implement" data-toggle="tab">Implementation</a></li>
-			  <li><a href="#demos" data-toggle="tab">Demo's</a></li>
-			  <li><a href="#unittests" data-toggle="tab">Unit tests</a></li>
+				<li><a href="#home" data-toggle="tab">About</a></li>
+				<li><a href="#implement" data-toggle="tab">Implementation</a></li>
+				<li><a href="#demos" data-toggle="tab">Demo's</a></li>
+				<li><a href="#unittests" data-toggle="tab">Unit tests</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
@@ -152,14 +151,20 @@ J$.get('xhr.php', 'foo=bar', function (data) {
 				</div>
 			</div>
 		</div>
+
 		<!-- jquery and bootstrap js -->
-		<script src="http://frontend.e-sites.nl/library/min/?g=js&1355489554"></script>
-		<script src="jsend-1.2.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+		<script>window.jQuery||document.write('<script src="/assets/jquery-1.9.0.min.js"><\/script>')</script>
+
+		<script src="http://frontend.e-sites.nl/library/min/?g=js&amp;1355489554"></script>
+		<script src="jsend-2.0.js"></script>
+
 		<!-- JSend plugins (of course, you won't use three separate requests for this in a production environment) -->
-		<script src="plugins/jsend.delay.js"></script>
+		<!-- <script src="plugins/jsend.delay.js"></script>
 		<script src="plugins/jsend.indicator.js"></script>
-		<script src="plugins/jsend.polling.js"></script>
+		<script src="plugins/jsend.polling.js"></script> -->
+		
 		<!-- All events for the demos -->
-		<script src="assets/events.js"></script>
+		<!-- <script src="assets/events.js"></script> -->
 	</body>
 </html>

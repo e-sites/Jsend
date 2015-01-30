@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Envelope the provided data into a readonly object
 $oRequestData = new Request($_REQUEST);
 
-// The server handles further handles the request
+// The server further handles the request
 Server::$_GET['m']($oRequestData);
 
 ?>

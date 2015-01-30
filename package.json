@@ -1,0 +1,40 @@
+{
+  "name": "JSend",
+  "version": "2.0.0",
+  "description": "JSend is a native AJAX implementation that strictly handles JSend responses according to the non-official JSend spec.",
+  "main": "dist/jsend.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/e-sites/Jsend"
+  },
+  "keywords": [
+    "jsend",
+    "ajax",
+    "json",
+    "validation",
+    "async",
+    "promises"
+  ],
+  "author": "Iain van der Wiel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/e-sites/Jsend/issues"
+  },
+  "homepage": "https://github.com/e-sites/Jsend",
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-rename": "^1.2.0",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-uglify": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.0.0"
+  }
+}
