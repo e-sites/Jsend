@@ -1,7 +1,9 @@
-'use strict';
+(function() {
+	'use strict';
 
-var jsonp = function () {
+	var jsonp = function () {
 
-}
+	};
 
-module.exports = jsonp;
+	module.exports = jsonp;
+}());

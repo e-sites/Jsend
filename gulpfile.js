@@ -2,6 +2,7 @@ var del = require('del');
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
+var jshint = require('gulp-jshint');
 var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
@@ -82,7 +83,18 @@ gulp.task('uglify', ['build'], function () {
 		.pipe(gulp.dest('./dist/'))
 });
 
-gulp.task('default', ['uglify']);
+gulp.task('jshint', function () {
+	return gulp.src('./src/*.js')
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(jshint.reporter('fail'));
+});
+
+gulp.task('test', ['jshint']);
+
+gulp.task('default', ['build']);
+
+gulp.task('release', ['uglify', 'test']);
 
 gulp.task('watch', function() {
 	gulp.watch('./src/*.js', ['default']);

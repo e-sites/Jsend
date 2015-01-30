@@ -1,17 +1,19 @@
-'use strict';
+(function() {
+	'use strict';
 
-var validate = function validate(body) {
-	if ( body && body.hasOwnProperty('status') ) {
-		if ( ( body.status === 'success' || body.status === 'fail' ) && body.hasOwnProperty('data') ) {
-			return true;
+	var validate = function validate(body) {
+		if ( body && body.hasOwnProperty('status') ) {
+			if ( ( body.status === 'success' || body.status === 'fail' ) && body.hasOwnProperty('data') ) {
+				return true;
+			}
+
+			else if (body.status === 'error' && body.hasOwnProperty('message') ) {
+				return true;
+			}
 		}
 
-		else if (body.status === 'error' && body.hasOwnProperty('message') ) {
-			return true;
-		}
-	}
+		return false;
+	};
 
-	return false;
-}
-
-module.exports = validate;
+	module.exports = validate;
+}());

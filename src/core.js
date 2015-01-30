@@ -11,46 +11,48 @@
  * @return   {object} The JSend object
 **/
 
-'use strict';
+(function() {
+	'use strict';
 
-var JSend = (function () {
-	var ajax = require('./ajax'),
-		jsonp = require('./jsonp');
+	var JSend = (function () {
+		var ajax = require('./ajax'),
+			jsonp = require('./jsonp');
 
-	if ( !window.Promise ) {
-		return console && console.warn('JSend requires `window.Promise`, please provide a polyfill');
-	}
-
-	return {
-		get: function (url, data) {
-			return ajax({
-				method: 'GET',
-				url: url,
-				data: data
-			});
-		},
-
-		post: function (url, data, headers) {
-			var options = {
-				method: 'POST',
-				url: url,
-				data: data
-			}
-
-			if ( headers && typeof headers === 'object' && header.constructor !== 'Array' ) {
-				options.headers = headers;
-			}
-
-			return ajax(options);
-		},
-
-		jsonp: function (url, data) {
-			return jsonp({
-				url: url,
-				data: data
-			});
+		if ( !window.Promise ) {
+			return console && console.warn('JSend requires `window.Promise`, please provide a polyfill');
 		}
-	}
-}());
 
-module.exports = JSend;
+		return {
+			get: function (url, data) {
+				return ajax({
+					method: 'GET',
+					url: url,
+					data: data
+				});
+			},
+
+			post: function (url, data, headers) {
+				var options = {
+					method: 'POST',
+					url: url,
+					data: data
+				};
+
+				if ( headers && typeof headers === 'object' && headers.constructor !== 'Array' ) {
+					options.headers = headers;
+				}
+
+				return ajax(options);
+			},
+
+			jsonp: function (url, data) {
+				return jsonp({
+					url: url,
+					data: data
+				});
+			}
+		};
+	}());
+
+	module.exports = JSend;
+}());

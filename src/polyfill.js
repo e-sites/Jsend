@@ -1,3 +1,7 @@
-var jsend = require('./core');
+(function() {
+	'use strict';
+	
+	var jsend = require('./core');
 
-module.exports = jsend;
+	module.exports = jsend;
+}());

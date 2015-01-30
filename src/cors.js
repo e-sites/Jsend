@@ -1,7 +1,9 @@
-'use strict';
+(function() {
+	'use strict';
 
-var cors = function () {
+	var cors = function () {
 
-};
+	};
 
-return cors;
+	return cors;
+}());
