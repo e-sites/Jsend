@@ -4,7 +4,9 @@
 	var merge = require('./merge'),
 		httpError = require('./httperror'),
 		validate = require('./validate'),
-		encode = require('./encode');
+		encode = require('./encode'),
+		reason = require('./reason'),
+		indicator = require('./indicator');
 
 	var ajax = function ajax(options) {
 		var request,
@@ -24,6 +26,11 @@
 
 		xhr = new XMLHttpRequest();
 		data = encode(config.data);
+
+		// Check for IE's XDomainRequest
+		if ( (window.location.hostname !== config.url.hostname || window.location.port !== config.url.port) && window.XDomainRequest ) {
+			xhr = new XDomainRequest();
+		}
 
 		// Setup request as a Promise
 		request = new Promise(function (resolve, reject) {
@@ -47,7 +54,12 @@
 			// Handle XHR timeout, necessary?
 			xhr.timeout = config.timeout;
 			xhr.ontimeout = function () {
-				reject(httpError(xhr, 'timeout'));
+				var res = {
+					status: 'error',
+					message: httpError(xhr, 'timeout')
+				};
+
+				reject(reason(res, xhr));
 			};
 
 			// Handle XHR request finished state (state 4)
@@ -56,22 +68,34 @@
 					res;
 
 				// Check for HTTP error
-				if ( !err ) {
-					res = JSON.parse(xhr.responseText);
+				if ( err ) {
+					res = {
+						status: 'error',
+						message: httpError(xhr)
+					};
 
-					// Validate JSend response
-					if ( validate(res) ) {
-						// Check JSend response status
-						if ( res.status === 'success' ) {
-							resolve(res.data, xhr);
-						} else {
-							reject(res.data, res.status, xhr);
-						}
+					reject(reason(res, xhr));
+
+					return;
+				}
+
+				// Validate JSend response
+				res = JSON.parse(xhr.responseText);
+
+				if ( validate(res) ) {
+					// Check JSend response status
+					if ( res.status === 'success' ) {
+						resolve(reason(res, xhr));
 					} else {
-						reject('Invalid JSend response');
+						reject(reason(res, xhr));
 					}
 				} else {
-					reject(httpError(xhr));
+					res = {
+						status: 'error',
+						message: httpError(xhr)
+					};
+
+					reject(reason(res, xhr));
 				}
 			};
 
