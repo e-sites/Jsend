@@ -9,38 +9,28 @@ class Server
 	public static function success(Request $oRequestData)
 	{
 		$oJsend = Jsend::createSuccess();
-		$oJsend->test = array('test' => 'test', 'input' => $oRequestData->name);
+		$oJsend->input = $oRequestData->name;
 		echo $oJsend;
 	}
 
 	public static function error(Request $oRequestData)
 	{
 		$oJsend = Jsend::createError('An error occurred');
-		$oJsend->test = array('test' => 'test', 'input' => $oRequestData->name);
+		$oJsend->input = $oRequestData->name;
 		echo $oJsend;
 	}
 
 	public static function fail(Request $oRequestData)
 	{
 		$oJsend = Jsend::createFail();
-		$oJsend->test = array('test' => 'test', 'input' => $oRequestData->name);
-		echo $oJsend;
-	}
-
-	public static function data(Request $oRequestData)
-	{
-		$oJsend = Jsend::createSuccess();
-		$oJsend->formdata = array(
-			'name' => $oRequestData->name,
-			'message' => $oRequestData->message
-		);
+		$oJsend->input = $oRequestData->name;
 		echo $oJsend;
 	}
 
 	public static function long(Request $oRequestData)
 	{
 		$oJsend = Jsend::createSuccess();
-		$oJsend->test = array('test' => 'test', 'input' => $oRequestData->name);
+		$oJsend->input = $oRequestData->name;
 		sleep(2);
 		echo $oJsend;
 	}
@@ -48,28 +38,34 @@ class Server
 	public static function timeout(Request $oRequestData)
 	{
 		$oJsend = Jsend::createSuccess();
-		$oJsend->test = array('test' => 'test', 'input' => $oRequestData->name);
+		$oJsend->input = $oRequestData->name;
 		sleep(10);
+		echo $oJsend;
+	}
+
+	public static function cors(Request $oRequestData)
+	{
+		$oJsend = Jsend::createSuccess();
+		$oJsend->input = $oRequestData->name;
 		echo $oJsend;
 	}
 
 	// HTTP responses
 	public static function http301()
 	{
-		header('Location: xhr.php?m=success', true, 301);
+		header('Location: xhr.php?m=success&name=301', true, 301);
 		exit;
 	}
 
 	public static function http302()
 	{
-		header('Location: xhr.php?m=success', true, 302);
+		header('Location: xhr.php?m=success&name=302', true, 302);
 		exit;
 	}
 
-	public static function http400($oRequestData)
+	public static function http400()
 	{
 		header('HTTP/1.1 400 Bad Request', true, 400);
-		echo 'Bad Request';
 		exit;
 	}
 
