@@ -83,17 +83,25 @@ if (!Object.keys) {
 
 	var select = function(selector) {return document.querySelector(selector)},
 		tests = [
-			// JSend response tests
-			'success','error','fail', 'long','timeout', 'cors',
+			// JSend GET response tests
+			'success', 'error', 'fail', 'long','timeout', 'cors',
+
+			// JSend POST response tests
+			'post-success', 'post-error', 'post-fail', 'post-long','post-timeout', 'post-cors',
 
 			// HTTP status code response tests
-			'http301','http302','http400','http403','http404','http500'
+			'http301', 'http302', 'http400','http403','http404','http500'
 		];
 
 	tests.forEach(function (test) {
 		var btn = select('.btn-test-' + test),
+			method = test.indexOf('post') !== -1 ? 'post' : 'get',
 			resultContainer = select('.test-result-' + test),
-			url = 'xhr.php?m=' + test + '&name=' + test;
+			url = 'xhr.php',
+			data = {
+				m: test.replace('post-', ''),
+				name: test
+			};
 
 		test === 'cors' ? url = '//xhr.localhost:8888/JSend/' + url : null;
 
@@ -101,7 +109,7 @@ if (!Object.keys) {
 			resultContainer.innerHTML = '';
 
 			JSend
-				.get(url)
+				[method](url, data)
 				.then(
 					// Success
 					function (response) {

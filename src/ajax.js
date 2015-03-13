@@ -37,14 +37,14 @@
 		// Merge options into defaults to create final config object
 		config = merge(defaults, options);
 
-		data = encode(config.data);
-
 		try {
 			url = new URL(config.url);
 		}
 		catch (e) {
 			url = false;
 		}
+
+		data = encode(config.data);
 
 		if ( url && (window.location.hostname !== url.hostname || window.location.port !== url.port) && !('withCredentials' in new XMLHttpRequest()) ) {
 			xhr = new XDomainRequest();
@@ -54,17 +54,19 @@
 
 		// Setup request as a Promise
 		requestPromise = new Promise(function (resolve, reject) {
-			// Open request
-			xhr.open(config.method, config.url);
-
-			// Force Content Type for IE
-			xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
-
 			// Set data as query string for GET method
 			if ( config.method === 'GET' && data ) {
 				config.url = config.url.indexOf('?') === -1 ? config.url + '?' + data : config.url + '&' + data;
 
 				data = null;
+			}
+			
+			// Open request
+			xhr.open(config.method, config.url);
+
+			// Force Content Type for IE
+			if ( config.method === 'GET' ) {
+				xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
 			}
 
 			// Set request headers
