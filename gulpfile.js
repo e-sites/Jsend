@@ -51,26 +51,7 @@ gulp.task('jsend', ['clean'], function() {
 	return bundle();
 });
 
-gulp.task('jsendpoly', function() {
-	var bundler;
-
-	buildArgs = copyObject(args);
-	buildArgs.entries = ['./src/polyfill.js'];
-
-	bundler = browserify(buildArgs);
-
-	var bundle = function() {
-		return bundler
-			.bundle()
-			.pipe(source('jsend.polyfill-' + getVersion() + '.js'))
-			.pipe(buffer())
-			.pipe(gulp.dest('./dist/'));
-	};
-
-	return bundle();
-});
-
-gulp.task('build', ['jsend', 'jsendpoly']);
+gulp.task('build', ['jsend']);
 
 gulp.task('uglify', ['build'], function () {
 	gulp.src('./dist/*.js')

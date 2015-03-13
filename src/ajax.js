@@ -9,33 +9,56 @@
 		indicator = require('./indicator');
 
 	var ajax = function ajax(options) {
-		var request,
+		var requestPromise,
 			defaults = {
+				timeout: 5000, // 5 seconds
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
-				},
-				timeout: 5000 // 5 seconds
+				}
 			},
+			isLteIE8 = (function () {
+				var test = navigator.userAgent.match(/MSIE (.{3}?);/);
+
+				if ( test !== null && Number(test[test.length - 1]) <= 8 ) {
+					return true;
+				}
+
+				return false;
+			}()),
+			onload = isLteIE8 ? 'onreadystatechange' : 'onload',
 			config,
 			xhr,
-			data;
+			data,
+			url,
+			res,
+			timeout = false;
 
 		// Merge options into defaults to create final config object
 		config = merge(defaults, options);
 
-		xhr = new XMLHttpRequest();
 		data = encode(config.data);
 
-		// Check for IE's XDomainRequest
-		if ( (window.location.hostname !== config.url.hostname || window.location.port !== config.url.port) && window.XDomainRequest ) {
+		try {
+			url = new URL(config.url);
+		}
+		catch (e) {
+			url = false;
+		}
+
+		if ( url && (window.location.hostname !== url.hostname || window.location.port !== url.port) && !('withCredentials' in new XMLHttpRequest()) ) {
 			xhr = new XDomainRequest();
+		} else {
+			xhr = new XMLHttpRequest();
 		}
 
 		// Setup request as a Promise
-		request = new Promise(function (resolve, reject) {
+		requestPromise = new Promise(function (resolve, reject) {
 			// Open request
 			xhr.open(config.method, config.url);
+
+			// Force Content Type for IE
+			xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
 
 			// Set data as query string for GET method
 			if ( config.method === 'GET' && data ) {
@@ -54,7 +77,10 @@
 			// Handle XHR timeout, necessary?
 			xhr.timeout = config.timeout;
 			xhr.ontimeout = function () {
-				var res = {
+				// Set timeout variable to prevent IE8 from executing onreadystatechange
+				timeout = true;
+
+				res = {
 					status: 'error',
 					message: httpError(xhr, 'timeout')
 				};
@@ -63,9 +89,12 @@
 			};
 
 			// Handle XHR request finished state (state 4)
-			xhr.onload = function () {
-				var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304),
-					res;
+			xhr[onload] = function () {
+				// Prevent execution if request isn't complete yet, or times out
+				if (xhr.readyState != 4 || timeout)
+					return;
+
+				var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304);
 
 				// Check for HTTP error
 				if ( err ) {
@@ -103,7 +132,7 @@
 			xhr.send(data);
 		});
 
-		return request;
+		return requestPromise;
 	};
 
 	module.exports = ajax;
