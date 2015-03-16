@@ -8,9 +8,9 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 
-var args = { 
-	cache: {}, 
-	packageCache: {}, 
+var args = {
+	cache: {},
+	packageCache: {},
 	fullPaths: true,
 	standalone: 'JSend',
 	debug: true

@@ -27,12 +27,8 @@
 				return false;
 			}()),
 			onload = isLteIE8 ? 'onreadystatechange' : 'onload',
-			config,
-			xhr,
-			data,
-			url,
-			res,
-			timeout = false;
+			timeout = false,
+			config, xhr, data, url, res;
 
 		// Merge options into defaults to create final config object
 		config = merge(defaults, options);
@@ -60,7 +56,7 @@
 
 				data = null;
 			}
-			
+
 			// Open request
 			xhr.open(config.method, config.url);
 
@@ -93,8 +89,9 @@
 			// Handle XHR request finished state (state 4)
 			xhr[onload] = function () {
 				// Prevent execution if request isn't complete yet, or times out
-				if (xhr.readyState != 4 || timeout)
+				if (xhr.readyState !== 4 || timeout) {
 					return;
+				}
 
 				var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304);
 
