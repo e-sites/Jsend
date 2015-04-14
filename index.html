@@ -2,44 +2,54 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>JSend - Consistent JSON data exchange via Ajax</title>
+		<link rel="dns-prefetch" href="//netdna.bootstrapcdn.com">
+		<link rel="dns-prefetch" href="//www.google-analytics.com">
+		<title>JSend - Consistent JSON data exchange via AJAX</title>
 		<meta name="description" content="JSend is a native AJAX implementation that strictly handles JSend responses according to the non-official JSend spec.">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script>document.documentElement.id = 'hasJS';</script>
-		<link rel="stylesheet" href="http://frontend.e-sites.nl/library/min/?g=css&amp;1357562300">
-		<!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://frontend.e-sites.nl/library/min/g=prettifyCss">
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
+		<![endif]-->
+		<script>var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-18924418-8'],['_setDomainName', '.e-sites.nl'],['_trackPageview'],['_trackPageLoadTime']);(function(b,c){var a=b.createElement(c),d=b.getElementsByTagName(c)[0];a.async=a.src='//www.google-analytics.com/ga.js';d.parentNode.insertBefore(a,d)})(document,'script');</script>
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="#"><img src="http://frontend.e-sites.nl/img/esites.png" alt="e-sites"> e-sites</a>
-				<div class="nav-collapse collapse">
-					<ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="http://e-sites.net/bureau.html" hreflang="nl">About</a></li>
-					</ul>
+		<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+			<div class="container">
+				<div class="navbar-header clearfix">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="http://e-sites.nl/en/" class="logo"><img src="http://frontend.e-sites.nl/img/esites-symbol.png" alt="" width="25"></a>
+					<a class="navbar-brand" href="index.html">JSend</a>
 				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/perimeter.js">Home</a></li>
+						<li><a href="http://e-sites.nl/en/" target="_blank">About</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
-		<div class="container" style="padding-top:20px;">
+		<div class="container" style="padding-top:60px;">
 			<h1>JSend</h1>
+			<blockquote>
+				<p>JSend is a native AJAX implementation that strictly handles JSend responses according to the <a href="http://labs.omniti.com/labs/jsend" target="_blank">non-official JSend spec</a>.</p>
+			</blockquote>
 			<ul class="nav nav-tabs" id="tab-nav">
-				<li><a href="#home" data-toggle="tab">About</a></li>
-				<li><a href="#implement" data-toggle="tab">Implementation</a></li>
+				<li class="active"><a href="#home" data-toggle="tab">About</a></li>
+				<li><a href="#docs" data-toggle="tab">Docs</a></li>
 				<li><a href="#demos" data-toggle="tab">Demo's</a></li>
 				<li><a href="#unittests" data-toggle="tab">Unit tests</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="home">
 					<h2>About</h2>
-					<p>JSend is a layer on top of jQuery's <code>$.ajax</code> method that handles JSON data exchange according to the non-official JSend spec. Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.</p>
+					<p>Whilst the spec provides rules for a consistent JSON response, our script gives developers the functionality to handle the actual communication based on this format.</p>
 
 					<h3>The spec</h3>
 					<p>Never heard of the Jsend spec? As stated on the OmniTI Labs site:</p>
@@ -63,108 +73,54 @@
 						<p>If you're a library or framework developer, this gives you a consistent format which your users are more likely to already be familiar with, which means they'll already know how to consume and interact with your code. If you're a web app developer, you won't have to think about how to structure the JSON data in your application, and you'll have existing reference implementations to get you up and running quickly.</p>
 					</blockquote>
 
+					<h3>Promise based</h3>
+					<p>TBD.</p>
+
 				</div>
-				<div class="tab-pane" id="implement">
-					<h2>Implementation</h2>
-					<p>The implementation is easy as pie. You'll need to (at least) add the following two scripts in your HTML (preferbly just before the <code>&lt;/body&gt;</code> closing tag):</p>
+				<div class="tab-pane" id="docs">
+					<h2>Docs</h2>
+					<h3>Getting started</h3>
+					<p>The implementation is easy as pie. You'll need to add the following script in your HTML (preferbly just before the <code>&lt;/body&gt;</code> closing tag):</p>
 
 <pre class="prettyprint">
-&lt;script src="/library/assets/jquery-1.8.3.min.js"&gt;&lt;/script&gt;
-&lt;script src="/library/assets/jsend-1.2.min.js"&gt;&lt;/script&gt;
+&lt;script src="jsend-2.0.0.min.js"&gt;&lt;/script&gt;
 </pre>
 
-					<p>Initiating an actual XHR can be accomplished as follows:</p>
+					<p>A simple GET request can be accomplished as follows:</p>
 
-<pre class="prettyprint">JSend({
-	url: 'url.php',
-	data: 'foo=bar',
-	success: function (data) {
-		console.log(data); // contains the value of the data-key
-		console.log(this); // Jsend instance
-	}
+<pre class="prettyprint">JSend
+.get('/xhr/entrypoint', {foo: bar})
+.then(function (res, xhr) {
+    console.log(res); // response object
+    console.log(res.status); // response status
+    console.log(res.data); // response data
+    console.log(xhr); // xhr object
 });</pre>
 
-<p>Perhaps you prefer to work directly with an instance? Got that.</p>
+					<h3>API</h3>
+					<h4><code>JSend.get(url, data)</code></h4>
+					<h4><code>JSend.post(url, data, headers)</code></h4>
+					<h4><code>JSend.jsonp(url, data)</code></h4>
 
-<pre class="prettyprint">var xhr = new JSend();
-xhr.config.type = 'POST';
-xhr.config.url = 'xhr.php';
-	
-// Somewhere in your event delegation logic…
-$('#adminpanel').on('click', '.btn', function (e) {
-	xhr.post({foo: 'bar'}, function (data) {
-		// handle data
-	});
-	e.preventDefault();
-});</pre>
-
-<p>Also, we have some abstractions (and an alias for the constructor):</p>
-
-<pre class="prettyprint">J$.post('xhr.php', {'foo': 'bar'}, function (data) {
-	// Do something with `data`
-});
-	
-J$.get('xhr.php', 'foo=bar', function (data) {
-	// Do something with `data`
-});</pre>
-
+					<h3>Working with promises</h3>
 				</div>
 				<div class="tab-pane" id="demos">
-					<h2>Demo time!</h2>
-					<h4>Demo 1: Custom error callback</h4>
-					<div class="clearfix">
-						<button class="btn btnPrimary" id="customError">Trigger error callback</button>
-						<pre id="customErrorOutput" style="display:none;"></pre>
-					</div>
-					<hr>
-					<h4>Demo 2: Submitting form data</h4>
-					<div class="clearfix">
-						<form method="POST" action="?ajax" id="ajaxFrm" style="float:left; margin-right:15px;">
-							<input type="text" name="name" id="gbNaam" placeholder="Name" required><br>
-							<textarea name="message" id="bericht" class="textarea" placeholder="Message" required></textarea><br>
-							<input class="btn" type="submit" name="placeMessage" class="submit" value="Submit message"><br>
-						</form>
-						<pre style="float:left; width:50%; margin:5px 0 0;" id="toServer"><b>Data to the server:</b><br><code class="js"></code></pre>
-						<pre style="float:left; width:50%; margin:5px 0 0;" id="fromServer"><b>Output from the server:</b><br><code class="js"></code></pre>
-					</div>
-					<hr>
-					<h4>Demo 3: track a Jsend request</h4>
-					<button class="btn btnPrimary trackRequest" id="smallReq">Track request</button>
-					<br><br>
-					<p>Elapsed time: <span id="trackingStatus">0ms</span></p>
-					<hr>
-					<h4>Demo 4: implementing an indicator</h4>
-					<p>Let's say you want to send form data to the server when clicking on a button. In that case it's nice to show an indicator...so one can actually see that a process is ongoing.</p>
-					<button class="btn btnPrimary floatLeft" id="showIndicator" style="margin-right:10px;">Start request with indicator</button><br><br>
-					<hr>
-					<h4>Demo 5: polling</h4>
-					<p>Poll every second (max 10 times).</p>
-					<button class="btn btnPrimary floatLeft" id="startPolling">Start polling</button>
-					<br style="clear:both"><br>
-					<p>
-						Poll amount: <span id="pollNr">0</span>
-					</p>
+					<h2>Demos</h2>
 				</div>
 				<div class="tab-pane" id="unittests">
-					<h2>Unit test's</h2>
-					<object data="tests/index.html" id="testsuite" width="100%" height="650"></object>
+					<h2>Unit tests</h2>
 				</div>
 			</div>
 		</div>
-
-		<!-- jquery and bootstrap js -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-		<script>window.jQuery||document.write('<script src="/assets/jquery-1.9.0.min.js"><\/script>')</script>
-
-		<script src="http://frontend.e-sites.nl/library/min/?g=js&amp;1355489554"></script>
-		<script src="jsend-2.0.js"></script>
-
-		<!-- JSend plugins (of course, you won't use three separate requests for this in a production environment) -->
-		<!-- <script src="plugins/jsend.delay.js"></script>
-		<script src="plugins/jsend.indicator.js"></script>
-		<script src="plugins/jsend.polling.js"></script> -->
-		
-		<!-- All events for the demos -->
-		<!-- <script src="assets/events.js"></script> -->
+		<!--[if lt IE 9]>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<!--<![endif]-->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script src="http://frontend.e-sites.nl/library/min/g=prettify"></script>
+		<script>window.prettyPrint && prettyPrint();</script>
+		<script src="dist/jsend-2.0.0.js"></script>
 	</body>
 </html>

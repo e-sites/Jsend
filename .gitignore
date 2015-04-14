@@ -36,4 +36,11 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Misc #
+######################
+.svn
+.htaccess
+tmp/**
+node_modules/
 dist

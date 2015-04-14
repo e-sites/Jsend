@@ -78,8 +78,9 @@
 		// Handle XHR request finished state (state 4)
 		xhr[onload] = function ajax_onload() {
 			// Prevent execution if request isn't complete yet, or times out
-			if (xhr.readyState != 4 || timeout)
+			if (xhr.readyState !== 4 || timeout) {
 				return;
+			}
 
 			// Check for HTTP error
 			var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304);

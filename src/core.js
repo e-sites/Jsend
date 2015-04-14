@@ -1,4 +1,3 @@
-
 /**
  * JSend is a native AJAX implementation that strictly handles JSend responses according to the non-official JSend spec.
  *
@@ -7,11 +6,11 @@
  * @see http://labs.omniti.com/labs/JSend
  *
  * @author   Iain van der Wiel <iain@e-sites.nl>
- * @version  2.0
- * @return   {object} The JSend object
+ * @version  2.0.0
+ * @return   {Object} The JSend object
 **/
 
-(function() {
+(function () {
 	'use strict';
 
 	var JSend = (function () {
