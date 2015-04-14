@@ -15,8 +15,7 @@
 	'use strict';
 
 	var JSend = (function () {
-		var ajax = require('./ajax'),
-			jsonp = require('./jsonp');
+		var request = require('./request');
 
 		if ( !window.Promise ) {
 			return console && console.warn('JSend requires `window.Promise`, please provide a polyfill');
@@ -24,31 +23,40 @@
 
 		return {
 			get: function (url, data) {
-				return ajax({
-					method: 'GET',
-					url: url,
-					data: data
+				return request({
+					type: 'ajax',
+					options: {
+						method: 'GET',
+						url: url,
+						data: data
+					}
 				});
 			},
 
 			post: function (url, data, headers) {
-				var options = {
-					method: 'POST',
-					url: url,
-					data: data
-				};
+				var config = {
+						type: 'ajax',
+						options: {
+							method: 'POST',
+							url: url,
+							data: data
+						}
+					};
 
 				if ( headers && typeof headers === 'object' && headers.constructor !== 'Array' ) {
-					options.headers = headers;
+					config.options.headers = headers;
 				}
 
-				return ajax(options);
+				return request(config);
 			},
 
 			jsonp: function (url, data) {
-				return jsonp({
-					url: url,
-					data: data
+				return request({
+					type: 'jsonp',
+					options: {
+						url: url,
+						data: data
+					}
 				});
 			}
 		};

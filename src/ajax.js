@@ -2,15 +2,10 @@
 	'use strict';
 
 	var merge = require('./merge'),
-		httpError = require('./httperror'),
-		validate = require('./validate'),
-		encode = require('./encode'),
-		reason = require('./reason'),
-		indicator = require('./indicator');
+		error = require('./error');
 
-	var ajax = function ajax(options) {
-		var requestPromise,
-			defaults = {
+	var ajax = function ajax(options, callback) {
+		var defaults = {
 				timeout: 5000, // 5 seconds
 				method: 'GET',
 				headers: {
@@ -27,114 +22,82 @@
 				return false;
 			}()),
 			onload = isLteIE8 ? 'onreadystatechange' : 'onload',
-			config,
-			xhr,
-			data,
+			config = merge(defaults, options),
+			data = config.data,
+			method = config.method,
 			url,
+			xhr,
 			res,
 			timeout = false;
 
-		// Merge options into defaults to create final config object
-		config = merge(defaults, options);
-
+		// Try to create an URL to check if hostname and port are the same
 		try {
 			url = new URL(config.url);
 		}
 		catch (e) {
-			url = false;
+			url = config.url;
 		}
 
-		data = encode(config.data);
-
-		if ( url && (window.location.hostname !== url.hostname || window.location.port !== url.port) && !('withCredentials' in new XMLHttpRequest()) ) {
+		// Check if url is cross-domain and set correct CORS XHR object
+		if ( url.location && (window.location.hostname !== url.hostname || window.location.port !== url.port) && !('withCredentials' in new XMLHttpRequest()) ) {
 			xhr = new XDomainRequest();
 		} else {
 			xhr = new XMLHttpRequest();
 		}
 
-		// Setup request as a Promise
-		requestPromise = new Promise(function (resolve, reject) {
-			// Set data as query string for GET method
-			if ( config.method === 'GET' && data ) {
-				config.url = config.url.indexOf('?') === -1 ? config.url + '?' + data : config.url + '&' + data;
+		// Open request
+		xhr.open(method, url);
 
-				data = null;
+		// Force Content Type for IE
+		if ( method === 'GET' ) {
+			xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
+		}
+
+		// Set request headers
+		for (var h in config.headers) {
+			if ( config.headers.hasOwnProperty(h) ) {
+				xhr.setRequestHeader(h, config.headers[h]);
 			}
-			
-			// Open request
-			xhr.open(config.method, config.url);
+		}
 
-			// Force Content Type for IE
-			if ( config.method === 'GET' ) {
-				xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
-			}
+		// Handle XHR timeout, necessary?
+		xhr.timeout = config.timeout;
+		xhr.ontimeout = function ajax_ontimeout() {
+			// Set timeout variable to prevent IE8 from executing onreadystatechange
+			timeout = true;
 
-			// Set request headers
-			for (var h in config.headers) {
-				if ( config.headers.hasOwnProperty(h) ) {
-					xhr.setRequestHeader(h, config.headers[h]);
-				}
-			}
+			// Generate error response
+			res = {
+				status: 'error',
+				message: error(xhr, 'timeout')
+			};
 
-			// Handle XHR timeout, necessary?
-			xhr.timeout = config.timeout;
-			xhr.ontimeout = function () {
-				// Set timeout variable to prevent IE8 from executing onreadystatechange
-				timeout = true;
+			callback(res, xhr);
+		};
 
+		// Handle XHR request finished state (state 4)
+		xhr[onload] = function ajax_onload() {
+			// Prevent execution if request isn't complete yet, or times out
+			if (xhr.readyState != 4 || timeout)
+				return;
+
+			// Check for HTTP error
+			var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304);
+
+			if ( err ) {
 				res = {
 					status: 'error',
-					message: httpError(xhr, 'timeout')
+					message: error(xhr)
 				};
-
-				reject(reason(res, xhr));
-			};
-
-			// Handle XHR request finished state (state 4)
-			xhr[onload] = function () {
-				// Prevent execution if request isn't complete yet, or times out
-				if (xhr.readyState != 4 || timeout)
-					return;
-
-				var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304);
-
-				// Check for HTTP error
-				if ( err ) {
-					res = {
-						status: 'error',
-						message: httpError(xhr)
-					};
-
-					reject(reason(res, xhr));
-
-					return;
-				}
-
-				// Validate JSend response
+			} else {
 				res = JSON.parse(xhr.responseText);
+			}
 
-				if ( validate(res) ) {
-					// Check JSend response status
-					if ( res.status === 'success' ) {
-						resolve(reason(res, xhr));
-					} else {
-						reject(reason(res, xhr));
-					}
-				} else {
-					res = {
-						status: 'error',
-						message: httpError(xhr)
-					};
+			callback(res, xhr);
+		};
 
-					reject(reason(res, xhr));
-				}
-			};
-
-			// Send request
-			xhr.send(data);
-		});
-
-		return requestPromise;
+		// Send request
+		xhr.send(data);
 	};
 
 	module.exports = ajax;

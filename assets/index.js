@@ -9,7 +9,7 @@ if (!Array.prototype.forEach) {
 		var O = Object(this);
 		var len = O.length >>> 0;
 
-		if (typeof callback !== "function") {
+		if (typeof callback !== 'function') {
 			throw new TypeError(callback + ' is not a function');
 		}
 
@@ -89,17 +89,20 @@ if (!Object.keys) {
 			// JSend POST response tests
 			'post-success', 'post-error', 'post-fail', 'post-long','post-timeout', 'post-cors',
 
+			// JSend JSONP response tests
+			'jsonp-success', 'jsonp-error', 'jsonp-fail', 'jsonp-long','jsonp-timeout', 'jsonp-cors',
+
 			// HTTP status code response tests
 			'http301', 'http302', 'http400','http403','http404','http500'
 		];
 
 	tests.forEach(function (test) {
 		var btn = select('.btn-test-' + test),
-			method = test.indexOf('post') !== -1 ? 'post' : 'get',
+			method = test.indexOf('-') !== -1 ? test.replace(/-(.*)/, '') : 'get',
 			resultContainer = select('.test-result-' + test),
 			url = 'xhr.php',
 			data = {
-				m: test.replace('post-', ''),
+				m: test.replace(/(post|jsonp)-/, ''),
 				name: test
 			};
 
@@ -120,8 +123,7 @@ if (!Object.keys) {
 					function (response) {
 						if ( response.data.status === 'fail' ) {
 							resultContainer.innerHTML = 'Fail: ' + JSON.stringify(response.data);
-						}
-						else if ( response.data.status === 'error' ) {
+						} else if ( response.data.status === 'error' ) {
 							resultContainer.innerHTML = 'Error: ' + JSON.stringify(response.data);
 						}
 					}
@@ -132,7 +134,7 @@ if (!Object.keys) {
 	});
 
 	document.querySelector('.btn-test-all').onclick = function (e) {
-		var event = document.createEvent("HTMLEvents");
+		var event = document.createEvent('HTMLEvents');
 
 		e.preventDefault();
 

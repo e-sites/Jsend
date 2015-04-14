@@ -5,26 +5,34 @@
 
 class Server
 {
+	private static function response($response) {
+		if ( isset($_REQUEST['callback']) ) {
+			$response = $_REQUEST['callback'] . '(' . $response . ')';
+		}
+
+		echo $response;
+	}
+
 	// JSend responses
 	public static function success(Request $oRequestData)
 	{
 		$oJsend = Jsend::createSuccess();
 		$oJsend->input = $oRequestData->name;
-		echo $oJsend;
+		Server::response($oJsend);
 	}
 
 	public static function error(Request $oRequestData)
 	{
 		$oJsend = Jsend::createError('An error occurred');
 		$oJsend->input = $oRequestData->name;
-		echo $oJsend;
+		Server::response($oJsend);
 	}
 
 	public static function fail(Request $oRequestData)
 	{
 		$oJsend = Jsend::createFail();
 		$oJsend->input = $oRequestData->name;
-		echo $oJsend;
+		Server::response($oJsend);
 	}
 
 	public static function long(Request $oRequestData)
@@ -32,7 +40,7 @@ class Server
 		$oJsend = Jsend::createSuccess();
 		$oJsend->input = $oRequestData->name;
 		sleep(2);
-		echo $oJsend;
+		Server::response($oJsend);
 	}
 	
 	public static function timeout(Request $oRequestData)
@@ -40,14 +48,14 @@ class Server
 		$oJsend = Jsend::createSuccess();
 		$oJsend->input = $oRequestData->name;
 		sleep(10);
-		echo $oJsend;
+		Server::response($oJsend);
 	}
 
 	public static function cors(Request $oRequestData)
 	{
 		$oJsend = Jsend::createSuccess();
 		$oJsend->input = $oRequestData->name;
-		echo $oJsend;
+		Server::response($oJsend);
 	}
 
 	// HTTP responses
