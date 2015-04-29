@@ -13,7 +13,7 @@
 (function () {
 	'use strict';
 
-	var JSend = (function () {
+	var JSend = (function core() {
 		var request = require('./request');
 
 		if ( !window.Promise ) {
@@ -21,7 +21,7 @@
 		}
 
 		return {
-			get: function (url, data) {
+			get: function jsendGet(url, data) {
 				return request({
 					type: 'ajax',
 					options: {
@@ -32,7 +32,7 @@
 				});
 			},
 
-			post: function (url, data, headers) {
+			post: function jsendPost(url, data, headers) {
 				var config = {
 						type: 'ajax',
 						options: {
@@ -49,7 +49,7 @@
 				return request(config);
 			},
 
-			jsonp: function (url, data) {
+			jsonp: function jsendJsonp(url, data) {
 				return request({
 					type: 'jsonp',
 					options: {

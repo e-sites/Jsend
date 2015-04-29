@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	var reason = function (response, xhr) {
+	var reason = function reason(response, xhr) {
 		return {
 			data: response,
 			xhr: xhr

@@ -11,7 +11,7 @@
 		},
 		res;
 
-	var request = function (config) {
+	var request = function request(config) {
 		var options = config.options;
 
 		// Encode the form data

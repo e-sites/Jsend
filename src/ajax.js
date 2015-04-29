@@ -12,7 +12,7 @@
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			},
-			isLteIE8 = (function () {
+			isLteIE8 = (function isLteIE8() {
 				var test = navigator.userAgent.match(/MSIE (.{3}?);/);
 
 				if ( test !== null && Number(test[test.length - 1]) <= 8 ) {
@@ -62,7 +62,7 @@
 
 		// Handle XHR timeout, necessary?
 		xhr.timeout = config.timeout;
-		xhr.ontimeout = function ajax_ontimeout() {
+		xhr.ontimeout = function ajaxOnTimeout() {
 			// Set timeout variable to prevent IE8 from executing onreadystatechange
 			timeout = true;
 
@@ -76,7 +76,7 @@
 		};
 
 		// Handle XHR request finished state (state 4)
-		xhr[onload] = function ajax_onload() {
+		xhr[onload] = function ajaxOnLoad() {
 			// Prevent execution if request isn't complete yet, or times out
 			if (xhr.readyState !== 4 || timeout) {
 				return;

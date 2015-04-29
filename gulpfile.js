@@ -73,9 +73,9 @@ gulp.task('jshint', function () {
 
 gulp.task('test', ['jshint']);
 
-gulp.task('default', ['build']);
+gulp.task('default', ['test', 'build']);
 
-gulp.task('release', ['uglify', 'test']);
+gulp.task('release', ['test', 'uglify']);
 
 gulp.task('watch', function() {
 	gulp.watch('./src/*.js', ['default']);

@@ -20,6 +20,7 @@
   "laxbreak"     : false,
   "laxcomma"     : false,
   "loopfunc"     : false,
+  "maxcomplexity": 10,
   "newcap"       : true,
   "noarg"        : true,
   "noempty"      : true,

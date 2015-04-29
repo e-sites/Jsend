@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	var indicator = function (config) {
+	var indicator = function indicator() {
 		
 	};
 
