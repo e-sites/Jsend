@@ -43,4 +43,3 @@ Thumbs.db
 .htaccess
 tmp/**
 node_modules/
-dist
