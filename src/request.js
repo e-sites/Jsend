@@ -5,7 +5,6 @@
 		validate = require('./validate'),
 		error = require('./error'),
 		reason = require('./reason'),
-		// promise = require('./promise'),
 		modules = {
 			ajax: require('./ajax'),
 			jsonp: require('./jsonp')
@@ -49,14 +48,6 @@
 			});
 		});
 
-		// console.dir(requestPromise);
-
-		// requestPromise.complete = function requestComplete(fn) {
-		// 	if ( typeof fn === 'function' ) {
-		// 		fn();
-		// 	}
-		// };
-	
 		// Return the JSend request promise
 		return requestPromise;
 	};
