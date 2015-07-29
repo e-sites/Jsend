@@ -116,15 +116,15 @@ if (!Object.keys) {
 				.then(
 					// Success
 					function (response) {
-						resultContainer.innerHTML = 'Success: ' + JSON.stringify(response.data);
+						resultContainer.innerHTML = 'Success: ' + JSON.stringify(response);
 					},
 
 					// Fail
 					function (response) {
-						if ( response.data.status === 'fail' ) {
-							resultContainer.innerHTML = 'Fail: ' + JSON.stringify(response.data);
-						} else if ( response.data.status === 'error' ) {
-							resultContainer.innerHTML = 'Error: ' + JSON.stringify(response.data);
+						if ( response.status === 'fail' ) {
+							resultContainer.innerHTML = 'Fail: ' + JSON.stringify(response);
+						} else if ( response.status === 'error' ) {
+							resultContainer.innerHTML = 'Error: ' + JSON.stringify(response);
 						}
 					}
 				);

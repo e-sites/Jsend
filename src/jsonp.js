@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	var res;
@@ -6,7 +6,11 @@
 	var jsonp = function jsonp(options, callback) {
 		var fname = 'jsend' + Math.round(Math.random() * 1000),
 			script = document.createElement('script'),
-			url = options.url.indexOf('?') === -1 ? options.url + '?callback=' + fname : options.url + '&callback=' + fname;
+			url = options.url.indexOf('?') === -1 ? options.url + '?callback=' + fname : options.url + '&callback=JSend.callbacks.' + fname;
+
+		console.log(url);
+
+		window.JSend.callbacks = window.JSend.callbacks || {};
 
 		script.onerror = function jsonpOnError (e) {
 			if ( e.type === 'error' ) {
@@ -23,10 +27,10 @@
 
 		document.head.appendChild(script);
 
-		window[fname] = function jsonpResponse(response) {
+		window.JSend.callbacks[fname] = function jsonpResponse(response) {
 			callback(response);
 
-			delete window[fname];
+			delete window.JSend.callbacks[fname];
 		};
 	};
 

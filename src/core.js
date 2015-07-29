@@ -16,10 +16,6 @@
 	var JSend = (function core() {
 		var request = require('./request');
 
-		if ( !window.Promise ) {
-			return console && console.warn('JSend requires `window.Promise`, please provide a polyfill');
-		}
-
 		return {
 			get: function jsendGet(url, data) {
 				return request({

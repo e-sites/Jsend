@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	var error = function error(xhr, error) {

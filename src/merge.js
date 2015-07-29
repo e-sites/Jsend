@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	// Function to deep merge arrays/objects

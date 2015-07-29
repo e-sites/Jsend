@@ -1,21 +1,24 @@
-(function() {
+(function () {
 	'use strict';
 		
-	var encode = require('./encode'),
+	var serialize = require('./serialize'),
 		validate = require('./validate'),
-		error = require('./error'),
-		reason = require('./reason'),
 		modules = {
 			ajax: require('./ajax'),
 			jsonp: require('./jsonp')
 		},
-		res;
+		request;
 
-	var request = function request(config) {
-		var options = config.options;
+	request = function request(config) {
+		var options = config.options,
+			requestPromise;
+
+		if ( !Promise ) {
+			return console && console.error('JSend requires `Promise`, please provide a polyfill');
+		}
 
 		// Encode the form data
-		options.data = encode(options.data);
+		options.data = typeof options.data === 'string' ? options.data : serialize(options.data);
 
 		// Generate GET url with data
 		if ( (options.method === 'GET' || config.type === 'jsonp') && options.data ) {
@@ -25,26 +28,9 @@
 		}
 
 		// Setup request as a Promise
-		var requestPromise = new Promise(function (resolve, reject) {
+		requestPromise = new Promise(function handlePromise(resolve, reject) {
 			modules[config.type](options, function (response, xhr) {
-				res = response;
-
-				// Validate response as JSend
-				if ( validate(res) ) {
-					// Check JSend response status
-					if ( res.status === 'success' ) {
-						resolve(reason(res, xhr));
-					} else {
-						reject(reason(res, xhr));
-					}
-				} else {
-					res = {
-						status: 'error',
-						message: error(xhr, response)
-					};
-
-					reject(reason(res, xhr));
-				}
+				validate(response, xhr, resolve, reject);
 			});
 		});
 

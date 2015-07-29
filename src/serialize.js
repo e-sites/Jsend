@@ -1,12 +1,12 @@
 (function() {
 	'use strict';
 
-	var encode = function encode(data) {
+	var serialize = function serialize(data) {
 		var e = encodeURIComponent,
 				tmp = [];
 
-		if ( typeof data === 'string' ) {
-			return data;
+		if ( typeof data !== 'object' ) {
+			throw new TypeError('expected data to be of type object');
 		}
 
 		for (var k in data) {
@@ -18,5 +18,5 @@
 		return tmp.join('&');
 	};
 
-	module.exports = encode;
+	module.exports = serialize;
 }());

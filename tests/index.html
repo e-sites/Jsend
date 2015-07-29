@@ -7,18 +7,20 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Jsend Test Suite</title>
-		<link rel="stylesheet" href="qunit.css" media="screen">
-		<script src="qunit.js"></script>
-		<script src="../assets/jquery-1.9.0.min.js"></script>
-		<script src="../jsend-1.2.js"></script>
-		<script src="tests.js"></script>
+		<link rel="stylesheet" href="../node_modules/gulp-mocha/node_modules/mocha/mocha.css" media="screen">
 	</head>
 	<body>
-		<h1 id="qunit-header">JSend Test Suite</h1>
-  		<h2 id="qunit-banner"></h2>
-  		<div id="qunit-testrunner-toolbar"></div>
-  		<h2 id="qunit-userAgent"></h2>
-  		<ol id="qunit-tests"></ol>
-  		<div id="qunit-fixture"></div>
+		<div id="mocha"></div>
+
+		<script src="../dist/jsend-2.0.0.js"></script>
+		<script src="../node_modules/gulp-mocha/node_modules/mocha/mocha.js"></script>
+		<script src="../node_modules/chai/chai.js"></script>
+		<script src="../node_modules/chai-as-promised/lib/chai-as-promised.js"></script>
+		<script>mocha.setup('bdd');</script>
+		<script src="tests.js"></script>
+		<script>
+			mocha.checkLeaks();
+			mocha.run();
+		</script>
 	</body>
 </html>

@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	var merge = require('./merge'),
@@ -6,7 +6,7 @@
 
 	var ajax = function ajax(options, callback) {
 		var defaults = {
-				timeout: 5000, // 5 seconds
+				timeout: 0,
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
