@@ -137,7 +137,7 @@
 					self.onFail.apply(self, [body.data, xhr]);
 					break;
 				case STATUS_ERROR:
-					self.onError.apply(self, [body.message, xhr]);
+					self.onError.apply(self, [body.message, body.data, xhr]);
 					break;
 			}
 			self.onComplete.apply(self, [body, xhr]);
