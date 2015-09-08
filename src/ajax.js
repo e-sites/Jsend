@@ -7,7 +7,7 @@
 	var ajax = function ajax(options, callback) {
 		var defaults = {
 				timeout: 0,
-				method: 'GET',
+				type: 'get',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
@@ -24,7 +24,7 @@
 			onload = isLteIE8 ? 'onreadystatechange' : 'onload',
 			config = merge(defaults, options),
 			data = config.data,
-			method = config.method,
+			type = config.type.toLowerCase(),
 			url,
 			xhr,
 			res,
@@ -46,10 +46,10 @@
 		}
 
 		// Open request
-		xhr.open(method, url);
+		xhr.open(type, url);
 
 		// Force Content Type for IE
-		if ( method === 'GET' ) {
+		if ( type === 'get' ) {
 			xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
 		}
 

@@ -44,22 +44,43 @@
 	describe('Core', function () {
 		context('.get()', function () {
 			it('should return a Promise', function () {
-				expect(core.get('foo', 'bar=baz')).to.be.instanceof(Promise);
+				var config = {
+					url: 'foo',
+					data: 'bar=baz'
+				};
+
+				expect(core.get(config)).to.be.instanceof(Promise);
 			});
 		});
 		context('.post()', function () {
 			it('should return a Promise', function () {
-				expect(core.post('foo', 'bar=baz')).to.be.instanceof(Promise);
+				var config = {
+					url: 'foo',
+					data: 'bar=baz'
+				};
+
+				expect(core.post(config)).to.be.instanceof(Promise);
 			});
 		});
 		context('.post() with custom headers', function () {
 			it('should return a Promise', function () {
-				expect(core.post('foo', 'bar=baz', {'Content-Type': 'application/x-www-form-urlencoded'})).to.be.instanceof(Promise);
+				var config = {
+					url: 'foo',
+					data: 'bar=baz',
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+				};
+
+				expect(core.post(config)).to.be.instanceof(Promise);
 			});
 		});
 		context('.jsonp()', function () {
 			it('should return a Promise', function () {
-				expect(core.jsonp('foo', 'bar=baz')).to.be.instanceof(Promise);
+				var config = {
+					url: 'foo',
+					data: 'bar=baz'
+				};
+
+				expect(core.jsonp(config)).to.be.instanceof(Promise);
 			});
 		});
 	});
@@ -67,41 +88,33 @@
 	// Test request module
 	describe('Request()', function () {
 		var config = {
-			options: {
-				url: '/xhr.php',
-				data: 'foo=bar'
-			}
+			url: '/xhr.php',
+			data: 'foo=bar'
 		};
 
 		it('ajax with string data request should return a Promise', function () {
-			config.type = 'ajax';
-			config.options.method = 'GET';
+			config.type = 'GET';
 
 			expect(request(config)).to.be.instanceof(Promise);
 		});
 
 		it('ajax with object data request should return a Promise', function () {
-			config.type = 'ajax';
-			config.options.url = '/xhr.php?m=success';
-			config.options.method = 'GET';
-			config.options.data = {foo: 'bar'};
+			config.url = '/xhr.php?m=success';
+			config.type = 'GET';
+			config.data = {foo: 'bar'};
 
 			expect(request(config)).to.be.instanceof(Promise);
 		});
 
 		it('jsonp with string data should return a Promise', function () {
 			config.type = 'jsonp';
-			config.options.url = '/xhr.php';
-			config.options.method = null;
 
 			expect(request(config)).to.be.instanceof(Promise);
 		});
 
 		it('jsonp with object data should return a Promise', function () {
 			config.type = 'jsonp';
-			config.options.method = null;
-			config.options.url = '/xhr.php';
-			config.options.data = {foo: 'bar'};
+			config.data = {foo: 'bar'};
 
 			expect(request(config)).to.be.instanceof(Promise);
 		});
@@ -111,8 +124,7 @@
 
 			Promise = null;
 
-			config.type = 'ajax';
-			config.options.method = 'GET';
+			config.type = 'GET';
 
 			expect(request(config)).to.be.undefined;
 
@@ -124,7 +136,7 @@
 		var options = {};
 
 		it('should fire the callback when done with a GET', function (done) {
-			options.method = 'GET';
+			options.type = 'GET';
 			options.url = 'http://localhost:8888/JSend/xhr.php?m=success&name=get';
 
 			function callback(response, xhr) {
@@ -141,7 +153,7 @@
 		});
 
 		it('should fire the callback when done with a POST', function (done) {
-			options.method = 'POST';
+			options.type = 'POST';
 			options.url = 'http://localhost:8888/JSend/xhr.php';
 
 			function callback(response, xhr) {
@@ -158,7 +170,7 @@
 		});
 
 		it('should fire the callback when done with a GET with IE8 UA', function (done) {
-			options.method = 'GET';
+			options.type = 'GET';
 			options.url = 'http://localhost:8888/JSend/xhr.php?m=success&name=get';
 			navigator.userAgent = 'MSIE 8.0;';
 
@@ -176,7 +188,7 @@
 		});
 
 		it('should fire the callback when done with a POST with IE8 UA', function (done) {
-			options.method = 'POST';
+			options.type = 'POST';
 			options.url = 'http://localhost:8888/JSend/xhr.php';
 			navigator.userAgent = 'MSIE 8.0;';
 
@@ -194,7 +206,7 @@
 		});
 
 		it('should fire the callback when getting a server error', function (done) {
-			options.method = 'GET';
+			options.type = 'GET';
 			options.url = 'http://localhost:8888/JSend/xhr.php?m=404&name=404';
 
 			function callback(response, xhr) {
@@ -210,25 +222,6 @@
 
 			ajax(options, callback);
 		});
-
-		// it('should fire the callback when getting a timeout error', function (done) {
-		// 	options.method = 'GET';
-		// 	options.timeout = 1000;
-		// 	options.url = 'http://localhost:8888/JSend/xhr.php?m=timeout&name=timeout';
-
-		// 	function callback(response, xhr) {
-		// 		expect(response)
-		// 			.to.be.an('object')
-		// 			.and.have.property('status', 'error');
-
-		// 		expect(xhr).to.be.an('object');
-		// 		expect(xhr.responseText).to.be.a('string');
-				
-		// 		done();
-		// 	}
-
-		// 	ajax(options, callback);
-		// });
 	});
 
 	describe('Error', function () {
@@ -281,34 +274,6 @@
 		});
 	});
 
-	// describe('JSONP', function () {
-	// 	var options = {};
-	// 	var readFile = require('fs').readFileSync;
-
-	// 	it('should fire a callback when requesting valid JSONP', function (done) {
-	// 		jsdom.env({
-	// 			url: 'http://localhost:8888/JSend/dev.html',
-	// 			done: function (errors, window) {
-	// 				global.window = window;
-	// 				global.window.JSend = {};
-	// 				global.document = window.document;
-
-	// 				jsonp({
-	// 					url: 'http://localhost:8888/JSend/xhr.php?m=success&name=success'
-	// 				}, function (response) {
-	// 					expect(response).to.be.an('object')
-	// 						and.have.property('status', 'success')
-	// 						.and.to.contain.all.keys('status', 'data')
-	// 						.and.have.property('data')
-	// 							.that.has.property('input', 'success');
-	// 					delete global.window;
-	// 					done();
-	// 				});
-	// 			}
-	// 		});
-	// 	});
-	// });
-	
 	describe('merge', function () {
 		it('should merge two basic objects', function () {
 			var merged = merge({foo: 'bar'}, {foo: 'baz'});
@@ -430,14 +395,14 @@
 				invalidSpy = chai.spy(invalid);
 
 			function valid(res) {
-				console.log('ok');
+				// OK
 				expect(res).to.contain.all.keys('status', 'data');
 				expect(res).to.have.deep.property('status', 'success');
 				expect(res).to.have.deep.property('data.foo', 'bar');
 			}
 
 			function invalid(res) {
-				console.log('wrong');
+				console.log('This should not have been called');
 			}
 
 			validate(data, {}, validSpy, invalidSpy);
@@ -459,11 +424,11 @@
 				invalidSpy = chai.spy(invalid);
 
 			function valid(res) {
-				console.log('wrong');
+				console.log('This should not have been called');
 			}
 
 			function invalid(res) {
-				console.log('ok');
+				// OK
 				expect(res).to.contain.all.keys('status', 'data');
 				expect(res).to.have.deep.property('status', 'fail');
 				expect(res).to.have.deep.property('data.foo', 'bar');
@@ -489,11 +454,11 @@
 				invalidSpy = chai.spy(invalid);
 
 			function valid(res) {
-				console.log('wrong');
+				console.log('This should not have been called');
 			}
 
 			function invalid(res) {
-				console.log('ok');
+				// OK
 				expect(res).to.contain.all.keys('status', 'message');
 				expect(res).to.have.deep.property('status', 'error');
 				expect(res).to.have.deep.property('data.foo', 'bar');
@@ -516,11 +481,11 @@
 				invalidSpy = chai.spy(invalid);
 
 			function valid(res) {
-				console.log('wrong');
+				console.log('This should not have been called');
 			}
 
 			function invalid(res) {
-				console.log('ok');
+				// OK
 				expect(res).to.contain.all.keys('status', 'message');
 				expect(res).to.have.deep.property('status', 'error');
 				expect(res.message).to.contain('Error [500]');

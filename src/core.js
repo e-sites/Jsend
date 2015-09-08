@@ -14,47 +14,38 @@
 	'use strict';
 
 	var JSend = (function core() {
-		var request = require('./request');
-
-		return {
-			get: function jsendGet(url, data) {
-				return request({
-					type: 'ajax',
-					options: {
-						method: 'GET',
-						url: url,
-						data: data
-					}
-				});
+		var request = require('./request'),
+			merge = require('./merge'),
+			defaults = {
+				type: 'get',
+				data: '',
+				timeout: 0,
+				headers: {}
 			},
+			types = ['get', 'post', 'jsonp'],
+			apis = {};
 
-			post: function jsendPost(url, data, headers) {
-				var config = {
-						type: 'ajax',
-						options: {
-							method: 'POST',
-							url: url,
-							data: data
-						}
-					};
+		// Base request API
+		apis.request = function jsendRequest(options) {
+			var config = merge(defaults, options);
 
-				if ( headers && typeof headers === 'object' && headers.constructor !== 'Array' ) {
-					config.options.headers = headers;
-				}
-
-				return request(config);
-			},
-
-			jsonp: function jsendJsonp(url, data) {
-				return request({
-					type: 'jsonp',
-					options: {
-						url: url,
-						data: data
-					}
-				});
-			}
+			return request(config);
 		};
+
+		// Add aliases for each request type
+		types.forEach(function (method) {
+			var func = function (config) {
+				var config = merge(defaults, config);
+
+				config.type = method;
+
+				return this.request(config);
+			};
+
+			apis[method] = func;
+		});
+
+		return apis;
 	}());
 
 	module.exports = JSend;

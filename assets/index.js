@@ -109,10 +109,17 @@ if (!Object.keys) {
 		test === 'cors' ? url = '//xhr.localhost:8888/JSend/' + url : null;
 
 		btn.onclick = function () {
+			var config = {
+				url: url,
+				data: data,
+				timeout: 3000
+			};
+
 			resultContainer.innerHTML = '';
 
 			JSend
-				[method](url, data)
+				// .request(config)
+				[method](config)
 				.then(
 					// Success
 					function (response) {

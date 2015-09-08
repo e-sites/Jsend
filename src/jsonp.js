@@ -8,8 +8,6 @@
 			script = document.createElement('script'),
 			url = options.url.indexOf('?') === -1 ? options.url + '?callback=' + fname : options.url + '&callback=JSend.callbacks.' + fname;
 
-		console.log(url);
-
 		window.JSend.callbacks = window.JSend.callbacks || {};
 
 		script.onerror = function jsonpOnError (e) {

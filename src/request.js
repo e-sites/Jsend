@@ -3,33 +3,36 @@
 		
 	var serialize = require('./serialize'),
 		validate = require('./validate'),
+		ajax = require('./ajax'),
 		modules = {
-			ajax: require('./ajax'),
+			get: ajax,
+			post: ajax,
 			jsonp: require('./jsonp')
 		},
 		request;
 
 	request = function request(config) {
-		var options = config.options,
-			requestPromise;
+		var requestPromise;
+
+		config.type = config.type.toLowerCase();
 
 		if ( !Promise ) {
 			return console && console.error('JSend requires `Promise`, please provide a polyfill');
 		}
 
 		// Encode the form data
-		options.data = typeof options.data === 'string' ? options.data : serialize(options.data);
+		config.data = typeof config.data === 'string' ? config.data : serialize(config.data);
 
 		// Generate GET url with data
-		if ( (options.method === 'GET' || config.type === 'jsonp') && options.data ) {
-			options.url = options.url.indexOf('?') === -1 ? options.url + '?' + options.data : options.url + '&' + options.data;
+		if ( (config.type === 'get' || config.type === 'jsonp') && config.data ) {
+			config.url = config.url.indexOf('?') === -1 ? config.url + '?' + config.data : config.url + '&' + config.data;
 
-			options.data = null;
+			config.data = null;
 		}
 
 		// Setup request as a Promise
 		requestPromise = new Promise(function handlePromise(resolve, reject) {
-			modules[config.type](options, function (response, xhr) {
+			modules[config.type](config, function (response, xhr) {
 				validate(response, xhr, resolve, reject);
 			});
 		});

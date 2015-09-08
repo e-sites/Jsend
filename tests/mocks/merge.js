@@ -4,6 +4,7 @@
 	function merge(defaults, options) {
 		return {
 			url: options.url,
+			type: 'get',
 			data: 'm=success&name=get',
 			method: options.method,
 			headers: {
