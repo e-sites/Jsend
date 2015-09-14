@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	var error = function error(xhr, error) {
+	var checkError = function checkError(xhr, error) {
 		
 		var msg = '',
 			error = error || {};
@@ -27,5 +27,5 @@
 		return msg;
 	};
 
-	module.exports = error;
+	module.exports = checkError;
 }());
