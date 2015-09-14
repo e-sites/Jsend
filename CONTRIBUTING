@@ -1,0 +1,14 @@
+# Contributing to JSend.js
+Hey there, it looks like you would like to improve JSend.js, yay! :) But before you do that, please read the following carefully to help you on your way. This provides you with some guidelines and gives us the ability to maintain a good code quality and maintainability.
+
+Please check the [open issues](https://github.com/e-sites/Jsend/issues) before you submit a bug report or pull request. All feature requests that are not currently in development, have been assigned [the "todo" milestone](https://github.com/e-sites/Jsend/milestones/Todo). Please check the todo list for ideas that haven't started development yet and review the open & past issues to see if your idea hasn't been discussed yet. We might have decided against adding a similar feature in the past, which would be a waste of your precious time might you start development on it.
+
+## How to Submit a Pull Request
+
+* Click the “Fork” button to create a personal fork of the JSend.js repository.
+* After cloning your fork of the JSend.js repository, in the terminal run `npm install` in the root of your checkout to install the required dev dependencies.
+* Create a branch for the feature you're going to develop. For example: `git checkout -b my-awesome-feature`. This branch 
+* Create a new branch for your new feature. You can use this branch to develop your features. This branch will eventually be used for merging into the master codebase.
+* The jsend.js and jsend.min.js files are built from source files in the src directory. Do not edit jsend.js directly. Instead, edit the source files, and then run `gulp` or use `gulp watch` to build the generated files.
+* Use `npm test` to run tests and verify your changes. If you are adding a new feature, you should add new tests! If you are changing existing functionality, make sure the existing tests run, or update them as appropriate.
+* Then you can submit your pull request. \o/ And as we say at E-sites: good luck Chuck!

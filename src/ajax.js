@@ -7,7 +7,6 @@
 	var ajax = function ajax(options, callback) {
 		var defaults = {
 				timeout: 0,
-				type: 'get',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
@@ -21,16 +20,16 @@
 
 				return false;
 			}()),
-			onload = isLteIE8 ? 'onreadystatechange' : 'onload',
+			eventName = isLteIE8 ? 'onreadystatechange' : 'onload',
 			config = merge(defaults, options),
-			data = config.data,
-			type = config.type.toLowerCase(),
 			url,
 			xhr,
 			res,
 			timeout = false;
 
-		// Try to create an URL to check if hostname and port are the same
+		config.type = config.type.toLowerCase();
+
+		// Try to create an URL to check if hostname and port are the same.
 		try {
 			url = new URL(config.url);
 		}
@@ -46,10 +45,10 @@
 		}
 
 		// Open request
-		xhr.open(type, url);
+		xhr.open(config.type, url);
 
 		// Force Content Type for IE
-		if ( type === 'get' ) {
+		if ( config.type === 'get' ) {
 			xhr.setRequestHeader('Content-Type', 'application/json; charset="utf-8"');
 		}
 
@@ -60,7 +59,7 @@
 			}
 		}
 
-		// Handle XHR timeout, necessary?
+		// Handle XHR timeout
 		xhr.timeout = config.timeout;
 		xhr.ontimeout = function ajaxOnTimeout() {
 			// Set timeout variable to prevent IE8 from executing onreadystatechange
@@ -76,7 +75,7 @@
 		};
 
 		// Handle XHR request finished state (state 4)
-		xhr[onload] = function ajaxOnLoad() {
+		xhr[eventName] = function ajaxOnLoad() {
 			// Prevent execution if request isn't complete yet, or times out
 			if (xhr.readyState !== 4 || timeout) {
 				return;
@@ -98,7 +97,7 @@
 		};
 
 		// Send request
-		xhr.send(data);
+		xhr.send(config.data);
 	};
 
 	module.exports = ajax;
