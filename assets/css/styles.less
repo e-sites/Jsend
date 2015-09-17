@@ -1,0 +1,144 @@
+/**
+ * JSend demo page styling
+ *
+ * @author: Iain van der Wiel <iain@e-sites.nl>
+ */
+
+// Variables
+@red: #fc274a;
+
+@gray-light: #eee;
+@gray: #ccc;
+@gray-dark: #666;
+
+@base-spacing: 10px;
+@test-result-height: 30px;
+
+// Base styling
+* {
+	&,
+	&:before,
+	&:after {
+		box-sizing: border-box;
+	}
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background: #fff;
+}
+
+body {
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 1em;
+}
+
+h1, h2, h3, p {
+	margin-top: 0;
+}
+
+input,
+textarea,
+select,
+button {
+	font-size: 1em;
+}
+
+button {
+	cursor: pointer;
+}
+
+// Containers
+.header {
+	margin-bottom: @base-spacing;
+	padding: @base-spacing * 2 @base-spacing;
+	color: @red;
+	background: black
+}
+
+.title {
+	margin: 0;
+}
+
+.content {
+	padding: @base-spacing;
+}
+
+// Helpers
+.clearfix {
+	&:after {
+		content: "";
+		display: table;
+		width: 100%;
+	}
+}
+
+// Test suites
+.test-suite {
+	margin-bottom: @base-spacing;
+	border: 1px solid @gray;
+	border-radius: 5px;
+	padding: @base-spacing;
+	background: @gray-light;
+
+	h3 {
+		margin: 0 0 @base-spacing;
+		font-size: 24px;
+	}
+
+	p {
+		margin: 0;
+	}
+}
+
+.test {
+	.clearfix();
+	border-bottom: 1px dashed @gray;
+	padding: @base-spacing 0;
+	line-height: @test-result-height - 2;
+
+	&:first-of-type {
+		border-top: 1px dashed @gray;
+	}
+}
+
+.btn-test {
+	float: left;
+	margin-right: @base-spacing;
+	border: none;
+	border-radius: 3px;
+	padding: 0 @base-spacing;
+	width: 120px;
+	font-size: 90%;
+	font-weight: bold;
+	line-height: @test-result-height;
+	color: #fff;
+	text-align: center;
+	background: @red;
+
+	&:focus,
+	&:hover {
+		background-color: darken(@red, 10%);
+	}
+}
+
+.test-result {
+	display: block;
+	overflow: hidden;
+	border: 1px solid @gray;
+	border-radius: 3px;
+	padding: 0 @base-spacing;
+	font-weight: bold;
+	color: @gray-dark;
+	min-height: @test-result-height;
+
+	&:empty&:before {
+		content: "Press the button to fire the test";
+	}
+
+	&.running&:before {
+		content: "Running test...";
+	}
+}

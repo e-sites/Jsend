@@ -156,11 +156,11 @@ end_of_record
 TN:
 SF:/Applications/MAMP/htdocs/Jsend/src/error.js
 FN:1,(anonymous_1)
-FN:4,error
+FN:4,checkError
 FNF:2
 FNH:2
 FNDA:1,(anonymous_1)
-FNDA:8,error
+FNDA:8,checkError
 DA:1,1
 DA:4,1
 DA:6,8

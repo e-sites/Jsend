@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JSend dev page</title>
+	<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+	<header class="header">
+		<h1 class="title">JSend.js test page</h1>
+	</header>
+
+	<main class="content">
+		<h2>JSend.js methods and results</h2>
+		<p>This page contains some tests to see how JSend.js handles the available request methods.</p>
+		<p>Press a button to fire the corresponding request and see the response.</p>
+		
+		<div class="test-suite">
+			<h3>Test all</h3>
+			<div class="test">
+				<button class="btn-test btn-test-all">Test all</button>
+				<p>Press this button to fire all requests at once.</p>
+			</div>
+		</div>
+		<section class="test-suite">
+			<h3>GET</h3>
+			<div class="test">
+				<button class="btn-test btn-test-success">success</button>
+				<code class="test-result test-result-success"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-error">error</button>
+				<code class="test-result test-result-error"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-fail">fail</button>
+				<code class="test-result test-result-fail"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-long">Long request</button>
+				<code class="test-result test-result-long"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-timeout">Timeout</button>
+				<code class="test-result test-result-timeout"></code>
+			</div>
+		</section>
+		
+		<section class="test-suite">
+			<h3>POST</h3>
+			<div class="test">
+				<button class="btn-test btn-test-post-success">success</button>
+				<code class="test-result test-result-post-success"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-post-error">error</button>
+				<code class="test-result test-result-post-error"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-post-fail">fail</button>
+				<code class="test-result test-result-post-fail"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-post-long">Long request</button>
+				<code class="test-result test-result-post-long"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-post-timeout">Timeout</button>
+				<code class="test-result test-result-post-timeout"></code>
+			</div>
+		</section>
+		
+		<section class="test-suite">
+			<h3>JSONP</h3>
+			<div class="test">
+				<button class="btn-test btn-test-jsonp-success">success</button>
+				<code class="test-result test-result-jsonp-success"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-jsonp-error">error</button>
+				<code class="test-result test-result-jsonp-error"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-jsonp-fail">fail</button>
+				<code class="test-result test-result-jsonp-fail"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-jsonp-long">Long request</button>
+				<code class="test-result test-result-jsonp-long"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-jsonp-timeout">Timeout</button>
+				<code class="test-result test-result-jsonp-timeout"></code>
+			</div>
+		</section>
+		
+		<section class="test-suite">
+			<h3>HTTP status codes</h3>
+			<div class="test">
+				<button class="btn-test btn-test-http301">301</button>
+				<code class="test-result test-result-http301"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-http302">302</button>
+				<code class="test-result test-result-http302"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-http400">400</button>
+				<code class="test-result test-result-http400"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-http403">403</button>
+				<code class="test-result test-result-http403"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-http404">404</button>
+				<code class="test-result test-result-http404"></code>
+			</div>
+			<div class="test">
+				<button class="btn-test btn-test-http500">500</button>
+				<code class="test-result test-result-http500"></code>
+			</div>
+		</section>
+	</main>
+	<script>
+	if ( !window.Promise ) {
+		document.write('<scr' + 'ipt src="assets/js/npo.js"></sc' + 'ript>');
+	}
+	if ( !JSON ) {
+		document.write('<scr' + 'ipt src="assets/js/json2.js"></sc' + 'ript>');
+	}
+	</script>
+
+	<script src="dist/jsend-2.0.0.js"></script>
+	<script src="assets/js/index.js"></script>
+</body>
+</html>

@@ -84,13 +84,13 @@ if (!Object.keys) {
 	var select = function(selector) {return document.querySelector(selector)},
 		tests = [
 			// JSend GET response tests
-			'success', 'error', 'fail', 'long','timeout', 'cors',
+			'success', 'error', 'fail', 'long','timeout',
 
 			// JSend POST response tests
-			'post-success', 'post-error', 'post-fail', 'post-long','post-timeout', 'post-cors',
+			'post-success', 'post-error', 'post-fail', 'post-long','post-timeout',
 
 			// JSend JSONP response tests
-			'jsonp-success', 'jsonp-error', 'jsonp-fail', 'jsonp-long','jsonp-timeout', 'jsonp-cors',
+			'jsonp-success', 'jsonp-error', 'jsonp-fail', 'jsonp-long','jsonp-timeout',
 
 			// HTTP status code response tests
 			'http301', 'http302', 'http400','http403','http404','http500'
@@ -115,6 +115,7 @@ if (!Object.keys) {
 				timeout: 3000
 			};
 
+			resultContainer.className += ' running';
 			resultContainer.innerHTML = '';
 
 			JSend
@@ -124,6 +125,7 @@ if (!Object.keys) {
 					// Success
 					function (response) {
 						resultContainer.innerHTML = 'Success: ' + JSON.stringify(response);
+						resultContainer.className = resultContainer.className.replace(' running', '');
 					},
 
 					// Fail
@@ -133,6 +135,8 @@ if (!Object.keys) {
 						} else if ( response.status === 'error' ) {
 							resultContainer.innerHTML = 'Error: ' + JSON.stringify(response);
 						}
+						resultContainer.className = resultContainer.className.replace(' running', '');
+						
 					}
 				);
 

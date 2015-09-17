@@ -1,0 +1,114 @@
+/**
+ * JSend demo page styling
+ *
+ * @author: Iain van der Wiel <iain@e-sites.nl>
+ */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 1em;
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+input,
+textarea,
+select,
+button {
+  font-size: 1em;
+}
+button {
+  cursor: pointer;
+}
+.header {
+  margin-bottom: 10px;
+  padding: 20px 10px;
+  color: #fc274a;
+  background: black;
+}
+.title {
+  margin: 0;
+}
+.content {
+  padding: 10px;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  width: 100%;
+}
+.test-suite {
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 10px;
+  background: #eeeeee;
+}
+.test-suite h3 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+.test-suite p {
+  margin: 0;
+}
+.test {
+  border-bottom: 1px dashed #cccccc;
+  padding: 10px 0;
+  line-height: 28px;
+}
+.test:after {
+  content: "";
+  display: table;
+  width: 100%;
+}
+.test:first-of-type {
+  border-top: 1px dashed #cccccc;
+}
+.btn-test {
+  float: left;
+  margin-right: 10px;
+  border: none;
+  border-radius: 3px;
+  padding: 0 10px;
+  width: 120px;
+  font-size: 90%;
+  font-weight: bold;
+  line-height: 30px;
+  color: #fff;
+  text-align: center;
+  background: #fc274a;
+}
+.btn-test:focus,
+.btn-test:hover {
+  background-color: #ed032a;
+}
+.test-result {
+  display: block;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 0 10px;
+  font-weight: bold;
+  color: #666666;
+  min-height: 30px;
+}
+.test-result:empty.test-result:before {
+  content: "Press the button to fire the test";
+}
+.test-result.running.test-result:before {
+  content: "Running test...";
+}
+/*# sourceMappingURL=styles.css.map */
