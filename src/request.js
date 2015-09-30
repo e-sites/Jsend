@@ -1,6 +1,8 @@
 (function () {
+	/* global Promise */
+
 	'use strict';
-		
+
 	var serialize = require('./serialize'),
 		validate = require('./validate'),
 		ajax = require('./ajax'),

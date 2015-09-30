@@ -14,7 +14,7 @@
 		<h2>JSend.js methods and results</h2>
 		<p>This page contains some tests to see how JSend.js handles the available request methods.</p>
 		<p>Press a button to fire the corresponding request and see the response.</p>
-		
+
 		<div class="test-suite">
 			<h3>Test all</h3>
 			<div class="test">
@@ -45,7 +45,7 @@
 				<code class="test-result test-result-timeout"></code>
 			</div>
 		</section>
-		
+
 		<section class="test-suite">
 			<h3>POST</h3>
 			<div class="test">
@@ -69,7 +69,7 @@
 				<code class="test-result test-result-post-timeout"></code>
 			</div>
 		</section>
-		
+
 		<section class="test-suite">
 			<h3>JSONP</h3>
 			<div class="test">
@@ -93,7 +93,7 @@
 				<code class="test-result test-result-jsonp-timeout"></code>
 			</div>
 		</section>
-		
+
 		<section class="test-suite">
 			<h3>HTTP status codes</h3>
 			<div class="test">
@@ -124,10 +124,10 @@
 	</main>
 	<script>
 	if ( !window.Promise ) {
-		document.write('<scr' + 'ipt src="assets/js/npo.js"></sc' + 'ript>');
+		document.write('<scr' + 'ipt src="node_modules/native-promise-only/lib/npo.src.js"></sc' + 'ript>');
 	}
 	if ( !JSON ) {
-		document.write('<scr' + 'ipt src="assets/js/json2.js"></sc' + 'ript>');
+		document.write('<scr' + 'ipt src="node_modules/json2-browser/json2.js"></sc' + 'ript>');
 	}
 	</script>
 
