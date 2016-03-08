@@ -1,6 +1,6 @@
 {
   "name": "jsend2",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "JSend is a native AJAX implementation that strictly handles JSend responses according to the non-official JSend spec.",
   "main": "dist/jsend-2.0.0.min.js",
   "directories": {
