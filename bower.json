@@ -6,7 +6,7 @@
     "Iain van der Wiel <iain.vanderwiel@gmail.com>"
   ],
   "description": "JSend is a native AJAX implementation that strictly handles JSend responses according to the non-official JSend spec.",
-  "main": "dist/jsend-2.0.0.min.js",
+  "main": "dist/jsend-2.0.1.min.js",
   "moduleType": [
     "amd",
     "globals",
