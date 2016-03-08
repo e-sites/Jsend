@@ -119,14 +119,18 @@
 			expect(request(config)).to.be.instanceof(Promise);
 		});
 
-		it('should warn when Promise() isn\'t available', function () {
+		it('should throw error when Promise() isn\'t available', function () {
 			var origPromise = Promise;
 
 			Promise = null;
 
 			config.type = 'GET';
 
-			expect(request(config)).to.be.undefined;
+			function initRequest() {
+				request(config)
+			}
+
+			expect(initRequest).to.throw('JSend requires `Promise`, please provide a polyfill');
 
 			Promise = origPromise;
 		});
@@ -145,7 +149,7 @@
 					.and.have.property('status');
 
 				expect(xhr).to.be.an('object');
-				
+
 				done();
 			}
 
@@ -162,7 +166,7 @@
 					.and.have.property('status');
 
 				expect(xhr).to.be.an('object');
-				
+
 				done();
 			}
 
@@ -180,7 +184,7 @@
 					.and.have.property('status');
 
 				expect(xhr).to.be.an('object');
-				
+
 				done();
 			}
 
@@ -198,7 +202,7 @@
 					.and.have.property('status');
 
 				expect(xhr).to.be.an('object');
-				
+
 				done();
 			}
 
@@ -216,7 +220,7 @@
 
 				expect(xhr).to.be.an('object');
 				expect(xhr.responseText).to.be.a('string');
-				
+
 				done();
 			}
 
@@ -248,7 +252,7 @@
 				.to.be.a('string')
 				.and.have.string('Bad Request [400].');
 		});
-		
+
 		it('should return a string with XHR status 403', function () {
 			expect(error({status: 403}))
 				.to.be.a('string')
@@ -412,7 +416,7 @@
 
 			done();
 		});
-		
+
 		it('should invalidate a JSend fail reponse', function (done) {
 			var data = {
 					status: 'fail',
@@ -441,7 +445,7 @@
 
 			done();
 		});
-		
+
 		it('should invalidate a JSend error reponse', function (done) {
 			var data = {
 					status: 'error',
@@ -471,7 +475,7 @@
 
 			done();
 		});
-		
+
 		it('should invalidate XHR error reponse', function (done) {
 			var xhr = {
 					status: 500,

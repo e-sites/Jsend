@@ -45,8 +45,7 @@ The implementation is easy as pie. You'll need to add the following script in yo
 Initiating an actual XHR can be accomplished like this:
 
 ```js
-JSend
-	.request({ // Setup the request here
+JSend.request({ // Setup the request here
 		type: 'get',
 		url: '/xhr.php',
 		data: {
@@ -86,4 +85,4 @@ In our repo we have included a single entrypoint named `xhr.php`, all communicat
 Big shout out to the devs at OmniTI 'for speccing out' a consistent JSON format.
 
 ## License
-Copyright &copy; 2015 E-sites, [e-sites.nl](http://www.e-sites.nl) Licensed under the MIT license.
+Copyright &copy; 2016 E-sites, [e-sites.nl](http://www.e-sites.nl) Licensed under the MIT license.

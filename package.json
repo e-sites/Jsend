@@ -6,9 +6,6 @@
   "directories": {
     "test": "tests"
   },
-  "scripts": {
-    "test": "istanbul cover _mocha tests/test-node.js; istanbul report html"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/e-sites/Jsend"

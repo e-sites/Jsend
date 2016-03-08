@@ -82,15 +82,24 @@
 			}
 
 			// Check for HTTP error
-			var err = (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304);
-
-			if ( err ) {
+			if ( (!xhr.status || (xhr.status < 200 || xhr.status >= 300) && xhr.status !== 304) ) {
+				// HTTP status error
 				res = {
 					status: 'error',
 					message: error(xhr)
 				};
 			} else {
-				res = JSON.parse(xhr.responseText);
+				// No status error. Try parsing response...
+				try {
+					res = JSON.parse(xhr.responseText);
+				}
+				// Parsing failed
+				catch (e) {
+					res = {
+						status: 'error',
+						message: error(xhr, e)
+					};
+				}
 			}
 
 			callback(res, xhr);

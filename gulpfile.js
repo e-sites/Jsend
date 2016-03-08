@@ -7,11 +7,13 @@ var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
+var exec = require('child_process').exec;
+var testCmd = "istanbul cover _mocha tests/test-node.js; istanbul report html";
 
 var args = {
 	cache: {},
 	packageCache: {},
-	fullPaths: true,
+	fullPaths: false,
 	standalone: 'JSend',
 	debug: true
 };
@@ -54,7 +56,7 @@ gulp.task('jsend', ['clean'], function() {
 gulp.task('build', ['jsend']);
 
 gulp.task('uglify', ['build'], function () {
-	gulp.src('./dist/*.js')
+	return gulp.src('./dist/*.js')
 		.pipe(rename({
 			suffix: ".min"
 		}))
@@ -71,11 +73,25 @@ gulp.task('jshint', function () {
 		.pipe(jshint.reporter('fail'));
 });
 
-gulp.task('test', ['jshint']);
+gulp.task('mocha', function (cb) {
+	exec(testCmd, function(error, stdout, stderr) {
+		if ( error ) {
+			console.error(error);
 
-gulp.task('default', ['test', 'build']);
+			cb();
 
-gulp.task('release', ['test', 'uglify']);
+			return;
+		}
+
+		console.log(stdout);
+
+		cb();
+	});
+});
+
+gulp.task('test', ['mocha', 'jshint']);
+
+gulp.task('default', ['test', 'uglify']);
 
 gulp.task('watch', function() {
 	gulp.watch('./src/*.js', ['default']);

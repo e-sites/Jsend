@@ -19,7 +19,7 @@
 		config.type = config.type.toLowerCase();
 
 		if ( !Promise ) {
-			return console && console.error('JSend requires `Promise`, please provide a polyfill');
+			throw new Error('JSend requires `Promise`, please provide a polyfill');
 		}
 
 		// Encode the form data
