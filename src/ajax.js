@@ -8,6 +8,7 @@
 		var defaults = {
 				timeout: 0,
 				headers: {
+					'X-Requested-With': 'XMLHttpRequest',
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			},
