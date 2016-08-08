@@ -45,7 +45,7 @@ gulp.task('jsend', ['clean'], function() {
 	var bundle = function() {
 		return bundler
 			.bundle()
-			.pipe(source('jsend-' + getVersion() + '.js'))
+			.pipe(source('jsend.js'))
 			.pipe(buffer())
 			.pipe(gulp.dest('./dist/'));
 	};
