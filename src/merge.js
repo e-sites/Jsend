@@ -1,7 +1,13 @@
 (function () {
 	'use strict';
 
-	// Function to deep merge arrays/objects
+	/**
+	 * Merges two arrays or objects into a new objects.
+	 *
+	 * @param  {(Array|Object)} target Target to merge src in
+	 * @param  {(Array|Object)} src    Source to merge in target
+	 * @return {(Array|Object)}        Merged array or object
+	 */
 	var merge = function merge(target, src) {
 		var array = Array.isArray(src),
 			dst = array && [] || {};

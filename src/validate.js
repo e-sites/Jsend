@@ -4,6 +4,14 @@
 	var error = require('./error'),
 		validateRequest;
 
+	/**
+	 * Validates a response by checking response data and http response headers
+	 *
+	 * @param  {Object} response Response Object
+	 * @param  {Object} xhr      XHR Object
+	 * @param  {Function} resolve  Promise resolve function
+	 * @param  {function} reject   Promise reject function
+	 */
 	var validateRequest = function validateRequest(response, xhr, resolve, reject) {
 		function isValidJsend(response) {
 			if ( response && response.hasOwnProperty('status') ) {
